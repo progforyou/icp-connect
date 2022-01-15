@@ -1,5 +1,5 @@
 {
-    "name": "stoic-identity-example",
+    "name": "icp-page",
     "private": true,
     "scripts": {
         "format": "virmator format write",
