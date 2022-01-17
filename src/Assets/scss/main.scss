@@ -7,6 +7,15 @@ body, body > * {
   background-color: #fafafa;
 }
 
+.btn {
+  display: flex;
+  align-items: center;
+  
+  & > * {
+    margin: auto;
+  }
+}
+
 .btn-outline-primary {
   border: 1px solid rgba(0, 208, 146, 0.5);
   color: #00d092;

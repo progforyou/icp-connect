@@ -22,7 +22,9 @@
       margin-top: 2.5em;
 
       & button {
+        min-width: 170px;
         width: auto;
+        height: 50px;
         font-size: 1.1em;
 
         &.plug {
@@ -256,7 +258,7 @@
       @include media('max', 'xl') {
         width: 16rem;
         padding: 2em;
-        
+
         & .card-img-top {
           width: 8rem;
         }

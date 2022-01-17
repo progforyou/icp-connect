@@ -22,13 +22,6 @@ const requestPrincipal = async () => {
 const getPlugNFTCollections = async (principal, canisterId) => {
     console.log('getNFTCollections')
     console.log(principal);
-    /*user: principal, */
-    /*const collections = await getAllUserNFTs(
-        {user: principal, agent: window.ic.plug.agent}
-    );*/
-    /*const collections = await getAllUserNFTs(
-        {user: principal.toString()}
-    );*/
     const standard = 'EXT';
     const NFTActor = getNFTActor({canisterId: canisterId, agent: window.ic.plug.agent, standard: standard});
     const collections = await NFTActor.getUserTokens(principal);

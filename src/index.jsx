@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'react-notifications/lib/notifications.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Assets/scss/main.scss';
 import App from './App';

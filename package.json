@@ -23,6 +23,9 @@
         "react-bootstrap": "^2.1.1",
         "react-dom": "^17.0.2",
         "react-icons": "^4.3.1",
+        "react-notifications": "^1.7.3",
+        "react-router-dom": "^6.2.1",
+        "storeon": "^3.1.4",
         "vite-plugin-env-compatible": "^1.1.1",
         "vite-plugin-svgr": "^1.0.1"
     },

@@ -1,41 +1,20 @@
 import React from "react";
-import {loadPlug} from "./Tools/Plug/PlugTools";
-import {loadStoic} from "./Tools/Stoic/StoicTools";
-import Navbar from "./Components/Navbar";
-import {Connect} from "./Views";
+import {StoreContext} from 'storeon/react'
+import {BrowserRouter} from "react-router-dom";
+import Routing from "./Routing";
+import {store} from "./Store";
+import {NotificationContainer} from 'react-notifications';
 
-const canisterId = 'unssi-hiaaa-aaaah-qcmya-cai'
 
-function App() {
-    const [plugCollection, setPlugCollection] = React.useState([]),
-        [stoicCollection, setStoicCollection] = React.useState([]),
-        [plugFetching, setPlugFetching] = React.useState(false),
-        [stoicFetching, setStoicFetching] = React.useState(false);
-    const setPlug = () => {
-        setPlugFetching(true);
-        loadPlug(canisterId).then(r => {
-            setPlugCollection(r);
-            setPlugFetching(false);
-        }).catch(e => {
-            console.log(e);
-        })
-    }
-    const setStoic = () => {
-        setStoicFetching(true);
-        loadStoic(canisterId).then(r => {
-            setPlugCollection(r);
-            setStoicFetching(false);
-        }).catch(e => {
-            setStoicFetching(false);
-            console.log(e);
-        })
-    }
+const App = (props) => {
     return (
-        <div className="App">
-            <Navbar/>
-            <Connect/>
-        </div>
-    );
+        <StoreContext.Provider value={store}>
+            <BrowserRouter>
+                <Routing/>
+                <NotificationContainer/>
+            </BrowserRouter>
+        </StoreContext.Provider>
+    )
 }
 
 export default App;
