@@ -30,7 +30,7 @@ const InfoDash = (props) => {
                     </div>
                 </Row>
                 <Row className={"discord_section"}>
-                    <Col xl={6} xs={12} className={"discord_inner"}>
+                    <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
                         <Row className={"discord_text"}>
                             <p>Enter your Discord name (#name) and get a special <b>Pets Holders Role!</b></p>
                         </Row>
@@ -38,7 +38,7 @@ const InfoDash = (props) => {
                             <a href="#qwe">Read more info</a>
                         </Row>
                     </Col>
-                    <Col xl={6} xs={12} className={"discord_form"}>
+                    <Col xl={6} lg={6} xs={12} className={"discord_form"}>
                         <Row className={"m-auto"}>
                             <Col>
                                 <Row className={"input_inner"}>

@@ -7,27 +7,45 @@
     margin-top: 2em;
 
 
-      .cards_inner {
-        display: flex;
+    .cards_inner {
+      display: flex;
 
-        .card {
-          margin-left: 20px;
+      .card {
+        margin-left: 20px;
+        margin-top: 20px;
 
-          .card-header {
-            border-radius: 0;
-            font-weight: bold;
-            font-size: 1.2em;
-          }
+        .card-header {
+          border-radius: 0;
+          font-weight: bold;
+          font-size: 1.2em;
+        }
 
-          .card-text {
-            margin-top: 1em;
-          }
+        .card-text {
+          margin-top: 1em;
+        }
 
-          &:first-child {
-            margin-left: 0;
-          }
+        &:first-child {
+          margin-left: 0;
         }
       }
+
+      @include media('max', 'lg') {
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .card {
+          width: 48%;
+          margin-left: 0;
+        }
+      }
+      @include media('max', 'md') {
+
+        .card {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
   }
 
   .discord_section {
@@ -140,44 +158,83 @@
     justify-content: space-between;
     margin-top: -2em;
 
-    .card {
+    .card_href {
+      margin-top: 4em;
       width: 350px;
       height: 350px;
-      position: relative;
-      margin-top: 4em;
-      padding: 0;
 
-      & .card-img-top {
-        border-radius: 100%;
-        width: 12rem;
-        margin: auto;
+      .card {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        padding: 0;
+
+        & .card-img-top {
+          border-radius: 100%;
+          width: 12rem;
+          margin: auto;
+        }
+
+        & .info_card {
+          display: flex;
+          width: 120px;
+          height: 50px;
+          position: absolute;
+          top: -20px;
+          right: -20px;
+          z-index: 99;
+          color: white;
+          border-radius: 10px;
+
+
+          &.green {
+            background-color: #00b894;
+          }
+
+          &.blue {
+            background-color: blue;
+          }
+
+          & span {
+            margin: auto;
+          }
+        }
+
       }
 
-      & .info_card {
-        display: flex;
-        width: 120px;
-        height: 50px;
-        position: absolute;
-        top: -20px;
-        right: -20px;
-        z-index: 99;
-        color: white;
-        border-radius: 10px;
+      @include media('max', 'xl') {
+        width: 285px;
+        height: 285px;
+      }
 
+      @include media('max', 'md') {
+        width: 230px;
+        height: 230px;
 
-        &.green {
-          background-color: #00b894;
+        .card .card-img-top {
+          width: 8rem;
         }
+      }
 
-        &.blue {
-          background-color: blue;
+      @include media('max', 'sm') {
+        width: 100%;
+        height: 300px;
+
+        .card  .info_card {
+          width: 130px !important;
+          height: 50px !important;
+          top: -10px !important;
+          right: -10px !important;
         }
+      }
 
-        & span {
-          margin: auto;
+      @include media('max', 'xs') {
+        .card-img-top {
+          width: 5rem;
         }
       }
     }
+
   }
 
 

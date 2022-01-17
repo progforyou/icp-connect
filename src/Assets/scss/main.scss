@@ -29,10 +29,11 @@ body, body > * {
   line-height: 1.75;
   font-weight: bold;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     border: 1px solid #00d092;
     background-color: rgba(0, 208, 146, 0.04);
     color: #00d092;
+    box-shadow: none !important;
   }
 }
 
@@ -67,4 +68,8 @@ body, body > * {
     box-shadow: none;
     border-color: #00b894;
   }
+}
+
+.navbar-toggler:focus{
+  box-shadow: none;
 }

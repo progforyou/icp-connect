@@ -4,14 +4,24 @@ import Paginator from "./Paginator";
 
 const CardItem = (props) => {
     return (
-        <Card>
-            <Card.Img variant="top" src="https://entrepot.app/collections/icpets/avatar.jpg"/>
-            <div className={"info_card green"}><span>ICPets</span></div>
-        </Card>
+        <a target="_blank" className={"card_href"} href={props.url}>
+            <Card>
+                <Card.Img variant="top" src={props.url}/>
+                <div className={"info_card green"}><span>ICPets</span></div>
+            </Card>
+        </a>
     )
 }
 
 const ListDash = (props) => {
+    const renderList = () => {
+        if (props.tokens){
+            return props.tokens.map((el, key) => {
+                return <CardItem key={key} {...el}/>
+            })
+        }
+    }
+    console.log(props);
     return (
         <Row id={'list_dash'}>
             <Col>
@@ -20,10 +30,10 @@ const ListDash = (props) => {
                 </Row>
                 <Row className={"list_cards mb-5"}>
                     <div className={"cards_inner"}>
-                        <CardItem/>
-                        <CardItem/>
-                        <CardItem/>
-                        <CardItem/>
+                        {renderList()}
+                        {renderList()}
+                        {renderList()}
+                        {renderList()}
                     </div>
                 </Row>
                 <Row>
