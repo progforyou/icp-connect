@@ -1,0 +1,75 @@
+@import "variables";
+
+#info_block {
+  margin-top: 30px;
+  
+  & .info_section {
+    margin-top: 2.5em;
+    
+    & .big_text{
+      font-weight: bold;
+      font-size: 4.5em;
+      margin-right: 1.2em;
+      line-height: 1.6em;
+    }
+    
+    & .small_text{
+      margin-top: 1em;
+      font-size: 1.7em;
+    }
+    
+    & .buttons{
+      margin-top: 2.5em;
+      & button{
+        width: auto;
+        
+        &.plug{
+          margin-right: 1.5em;
+        }
+      }
+    }
+  }
+  
+  & .img_section {
+    position: relative;
+
+    & .img_position {
+      position: absolute;
+
+      &:nth-child(1) {
+        top: 0;
+        left: -10%;
+        z-index: 55;
+      }
+      
+      &:nth-child(2) {
+        top: 10%;
+        right: -5%;
+        z-index: 54;
+      }
+
+      &:nth-child(3) {
+        bottom: 0;
+        left: 10%;
+        z-index: 53;
+      }
+
+      & .img_container {
+        position: relative;
+        height: 330px;
+        width: 330px;
+
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          margin: 0 auto;
+          object-fit: contain;
+          display: block;
+        }
+      }
+    }
+  }
+}

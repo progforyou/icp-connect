@@ -1,8 +1,8 @@
 import React from "react";
-import ConnectButtons from "./Components/Buttons";
-import {PlugView, StoicView} from "./Views";
 import {loadPlug} from "./Tools/Plug/PlugTools";
 import {loadStoic} from "./Tools/Stoic/StoicTools";
+import Navbar from "./Components/Navbar";
+import {Connect} from "./Views";
 
 const canisterId = 'unssi-hiaaa-aaaah-qcmya-cai'
 
@@ -16,9 +16,9 @@ function App() {
         loadPlug(canisterId).then(r => {
             setPlugCollection(r);
             setPlugFetching(false);
-        })/*.catch(e => {
+        }).catch(e => {
             console.log(e);
-        })*/
+        })
     }
     const setStoic = () => {
         setStoicFetching(true);
@@ -32,9 +32,8 @@ function App() {
     }
     return (
         <div className="App">
-            <ConnectButtons canisterId={canisterId} loadPlug={setPlug} loadStoic={setStoic}/>
-{/*            <PlugView data={plugCollection} fetching={plugFetching}/>
-            <StoicView data={stoicCollection} fetching={stoicFetching}/>*/}
+            <Navbar/>
+            <Connect/>
         </div>
     );
 }

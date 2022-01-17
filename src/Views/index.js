@@ -1,2 +1,1 @@
-export * from './Plug';
-export * from './Stoic';
+export * from './Connect';

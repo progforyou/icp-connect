@@ -1,5 +1,5 @@
 import {Actor, ActorSubclass, HttpAgent, HttpAgentOptions} from '@dfinity/agent';
-import idlFactory from './text.did';
+import idlFactory from './ext.did';
 import {StoicIdentity} from './stoic-identity-types-shim.js';
 
 /** Very incomplete type information. */
@@ -19,12 +19,12 @@ export async function createAgent(stoicIdentity: StoicIdentity): Promise<HttpAge
     return new HttpAgent(agentOptions);
 }
 
-export async function createLedgerActor(stoicIdentity: StoicIdentity): Promise<LedgerActor> {
+export async function createLedgerActor(stoicIdentity: StoicIdentity, canisterId: string): Promise<LedgerActor> {
     const agent = await createAgent(stoicIdentity);
 
     const ledgerActor = Actor.createActor<LedgerApi>(idlFactory, {
         agent,
-        canisterId: 'unssi-hiaaa-aaaah-qcmya-cai',
+        canisterId: canisterId,
     });
     console.log(ledgerActor);
     return ledgerActor;

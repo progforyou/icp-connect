@@ -1,3 +1,4 @@
+/*
 import React from "react";
 import {Card, CardContent, CardMedia, Typography} from "@mui/material";
 
@@ -23,4 +24,4 @@ const NFTCard = (props) => {
     );
 }
 
-export default NFTCard;
+export default NFTCard;*/

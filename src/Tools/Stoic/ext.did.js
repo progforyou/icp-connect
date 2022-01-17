@@ -1,107 +1,52 @@
-export const idlFactory = ({IDL}) => {
+export default ({IDL}) => {
+    const SubAccount__1 = IDL.Vec(IDL.Nat8);
+    const TokenIndex = IDL.Nat32;
+    const AccountIdentifier__1 = IDL.Text;
+    const Settlement = IDL.Record({
+        'subaccount': SubAccount__1,
+        'seller': IDL.Principal,
+        'buyer': AccountIdentifier__1,
+        'price': IDL.Nat64,
+    });
     const TokenIdentifier = IDL.Text;
     const AccountIdentifier = IDL.Text;
     const User = IDL.Variant({
         'principal': IDL.Principal,
         'address': AccountIdentifier,
     });
-    const Request__1 = IDL.Record({
+    const BalanceRequest = IDL.Record({
         'token': TokenIdentifier,
-        'owner': User,
-        'spender': IDL.Principal,
+        'user': User,
     });
     const Balance = IDL.Nat;
+    const CommonError__1 = IDL.Variant({
+        'InvalidToken': TokenIdentifier,
+        'Other': IDL.Text,
+    });
+    const BalanceResponse = IDL.Variant({
+        'ok': Balance,
+        'err': CommonError__1,
+    });
+    const TokenIdentifier__1 = IDL.Text;
     const CommonError = IDL.Variant({
         'InvalidToken': TokenIdentifier,
         'Other': IDL.Text,
     });
-    const Response__1 = IDL.Variant({'ok': Balance, 'err': CommonError});
-    const SubAccount = IDL.Vec(IDL.Nat8);
-    const ApproveRequest = IDL.Record({
-        'token': TokenIdentifier,
-        'subaccount': IDL.Opt(SubAccount),
-        'allowance': Balance,
-        'spender': IDL.Principal,
+    const Result_7 = IDL.Variant({
+        'ok': AccountIdentifier__1,
+        'err': CommonError,
     });
-    const ICP = IDL.Record({'e8s': IDL.Nat64});
-    const Legend = IDL.Record({
-        'ink': IDL.Text,
-        'back': IDL.Text,
-        'border': IDL.Text,
-    });
-    const Result = IDL.Variant({'ok': IDL.Null, 'err': IDL.Text});
     const Time = IDL.Int;
-    const Listing__1 = IDL.Record({
-        'subaccount': IDL.Opt(SubAccount),
+    const Listing = IDL.Record({
         'locked': IDL.Opt(Time),
         'seller': IDL.Principal,
         'price': IDL.Nat64,
     });
-    const DetailsResponse = IDL.Variant({
-        'ok': IDL.Tuple(AccountIdentifier, IDL.Opt(Listing__1)),
+    const Result_8 = IDL.Variant({
+        'ok': IDL.Tuple(AccountIdentifier__1, IDL.Opt(Listing)),
         'err': CommonError,
     });
-    const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
-    const Request = IDL.Record({
-        'url': IDL.Text,
-        'method': IDL.Text,
-        'body': IDL.Vec(IDL.Nat8),
-        'headers': IDL.Vec(HeaderField),
-    });
-    const StreamingCallbackToken = IDL.Record({
-        'key': IDL.Text,
-        'index': IDL.Nat,
-        'content_encoding': IDL.Text,
-    });
-    const StreamingCallbackResponse = IDL.Record({
-        'token': IDL.Opt(StreamingCallbackToken),
-        'body': IDL.Vec(IDL.Nat8),
-    });
-    const StreamingCallback = IDL.Func(
-        [StreamingCallbackToken],
-        [StreamingCallbackResponse],
-        ['query'],
-    );
-    const StreamingStrategy = IDL.Variant({
-        'Callback': IDL.Record({
-            'token': StreamingCallbackToken,
-            'callback': StreamingCallback,
-        }),
-    });
-    const Response = IDL.Record({
-        'body': IDL.Vec(IDL.Nat8),
-        'headers': IDL.Vec(HeaderField),
-        'streaming_strategy': IDL.Opt(StreamingStrategy),
-        'status_code': IDL.Nat16,
-    });
-    const Token = IDL.Record({
-        'owner': AccountIdentifier,
-        'createdAt': IDL.Int,
-        'txId': IDL.Text,
-    });
-    const ListRequest = IDL.Record({
-        'token': TokenIdentifier,
-        'from_subaccount': IDL.Opt(SubAccount),
-        'price': IDL.Opt(IDL.Nat64),
-    });
-    const ListResponse = IDL.Variant({'ok': IDL.Null, 'err': CommonError});
-    const TokenIndex = IDL.Nat32;
-    const Metadata__1 = IDL.Variant({
-        'fungible': IDL.Record({
-            'decimals': IDL.Nat8,
-            'metadata': IDL.Opt(IDL.Vec(IDL.Nat8)),
-            'name': IDL.Text,
-            'symbol': IDL.Text,
-        }),
-        'nonfungible': IDL.Record({'metadata': IDL.Opt(IDL.Vec(IDL.Nat8))}),
-    });
-    const ListingsResponse = IDL.Vec(
-        IDL.Tuple(TokenIndex, Listing__1, Metadata__1)
-    );
-    const LockResponse = IDL.Variant({
-        'ok': AccountIdentifier,
-        'err': CommonError,
-    });
+    const Extension = IDL.Text;
     const Metadata = IDL.Variant({
         'fungible': IDL.Record({
             'decimals': IDL.Nat8,
@@ -111,70 +56,90 @@ export const idlFactory = ({IDL}) => {
         }),
         'nonfungible': IDL.Record({'metadata': IDL.Opt(IDL.Vec(IDL.Nat8))}),
     });
-    const MetadataResponse = IDL.Variant({
-        'ok': Metadata,
-        'err': CommonError,
+    const HeaderField = IDL.Tuple(IDL.Text, IDL.Text);
+    const HttpRequest = IDL.Record({
+        'url': IDL.Text,
+        'method': IDL.Text,
+        'body': IDL.Vec(IDL.Nat8),
+        'headers': IDL.Vec(HeaderField),
     });
-    const Result_6 = IDL.Variant({'ok': IDL.Nat, 'err': IDL.Text});
-    const TxId = IDL.Nat32;
-    const TokenIndex__1 = IDL.Nat32;
-    const Lock = IDL.Record({
-        'id': TxId,
-        'token': TokenIndex__1,
-        'buyerAccount': IDL.Text,
-        'memo': IDL.Nat64,
-        'lockedAt': Time,
-        'buyer': IDL.Principal,
+    const HttpStreamingCallbackToken = IDL.Record({
+        'key': IDL.Text,
+        'sha256': IDL.Opt(IDL.Vec(IDL.Nat8)),
+        'index': IDL.Nat,
+        'content_encoding': IDL.Text,
     });
-    const BlockHeight = IDL.Nat64;
-    const Purchase = IDL.Record({
-        'id': TxId,
-        'token': TokenIndex__1,
-        'buyerAccount': IDL.Text,
-        'memo': IDL.Nat64,
-        'blockheight': BlockHeight,
-        'closedAt': Time,
-        'lockedAt': Time,
-        'buyer': IDL.Principal,
-        'price': IDL.Nat64,
+    const HttpStreamingCallbackResponse = IDL.Record({
+        'token': IDL.Opt(HttpStreamingCallbackToken),
+        'body': IDL.Vec(IDL.Nat8),
     });
-    const NNSTransaction = IDL.Record({
-        'from': IDL.Text,
-        'memo': IDL.Nat64,
-        'blockheight': IDL.Nat64,
-        'timestamp': Time,
-        'amount': IDL.Nat64,
-    });
-    const Refund = IDL.Record({
-        'id': TxId,
-        'buyer': IDL.Text,
-        'transactions': IDL.Record({
-            'original': NNSTransaction,
-            'refund': NNSTransaction,
+    const HttpStreamingStrategy = IDL.Variant({
+        'Callback': IDL.Record({
+            'token': HttpStreamingCallbackToken,
+            'callback': IDL.Func(
+                [HttpStreamingCallbackToken],
+                [HttpStreamingCallbackResponse],
+                ['query'],
+            ),
         }),
     });
-    const Result_5 = IDL.Variant({'ok': TxId, 'err': IDL.Text});
-    const Result_4 = IDL.Variant({'ok': TokenIndex, 'err': IDL.Text});
+    const HttpResponse = IDL.Record({
+        'body': IDL.Vec(IDL.Nat8),
+        'headers': IDL.Vec(HeaderField),
+        'streaming_strategy': IDL.Opt(HttpStreamingStrategy),
+        'status_code': IDL.Nat16,
+    });
+    const ListRequest = IDL.Record({
+        'token': TokenIdentifier__1,
+        'from_subaccount': IDL.Opt(SubAccount__1),
+        'price': IDL.Opt(IDL.Nat64),
+    });
     const Result_3 = IDL.Variant({'ok': IDL.Null, 'err': CommonError});
-    const Result_2 = IDL.Variant({
+    const Result_6 = IDL.Variant({'ok': Metadata, 'err': CommonError});
+    const MintingRequest = IDL.Record({
+        'to': AccountIdentifier__1,
+        'asset': IDL.Nat32,
+    });
+    const Result_5 = IDL.Variant({
+        'ok': IDL.Tuple(AccountIdentifier__1, IDL.Nat64),
+        'err': IDL.Text,
+    });
+    const Result_4 = IDL.Variant({'ok': IDL.Null, 'err': IDL.Text});
+    const SaleTransaction = IDL.Record({
+        'time': Time,
+        'seller': IDL.Principal,
+        'tokens': IDL.Vec(TokenIndex),
+        'buyer': AccountIdentifier__1,
+        'price': IDL.Nat64,
+    });
+    const Sale = IDL.Record({
+        'expires': Time,
+        'subaccount': SubAccount__1,
+        'tokens': IDL.Vec(TokenIndex),
+        'buyer': AccountIdentifier__1,
+        'price': IDL.Nat64,
+    });
+    const Balance__1 = IDL.Nat;
+    const Result_2 = IDL.Variant({'ok': Balance__1, 'err': CommonError});
+    const Result_1 = IDL.Variant({
         'ok': IDL.Vec(TokenIndex),
         'err': CommonError,
     });
-    const Listing = IDL.Record({
-        'locked': IDL.Opt(IDL.Int),
-        'seller': IDL.Principal,
-        'price': IDL.Nat64,
-    });
-    const TokenExt = IDL.Tuple(
-        TokenIndex,
-        IDL.Opt(IDL.Vec(Listing)),
-        IDL.Opt(IDL.Vec(IDL.Nat8)),
-    );
-    const Result_1 = IDL.Variant({
-        'ok': IDL.Vec(TokenExt),
+    const Result = IDL.Variant({
+        'ok': IDL.Vec(
+            IDL.Tuple(TokenIndex, IDL.Opt(Listing), IDL.Opt(IDL.Vec(IDL.Nat8)))
+        ),
         'err': CommonError,
     });
+    const Transaction = IDL.Record({
+        'token': TokenIdentifier__1,
+        'time': Time,
+        'seller': IDL.Principal,
+        'buyer': AccountIdentifier__1,
+        'price': IDL.Nat64,
+    });
     const Memo = IDL.Vec(IDL.Nat8);
+    const SubAccount = IDL.Vec(IDL.Nat8);
     const TransferRequest = IDL.Record({
         'to': User,
         'token': TokenIdentifier,
@@ -195,91 +160,108 @@ export const idlFactory = ({IDL}) => {
             'Other': IDL.Text,
         }),
     });
-    const Tag = IDL.Text;
-    const FilePath = IDL.Text;
-    const Meta = IDL.Record({
-        'name': IDL.Text,
-        'tags': IDL.Vec(Tag),
-        'description': IDL.Text,
-        'filename': FilePath,
-    });
-    const LegendsNFT = IDL.Service({
-        'addAdmin': IDL.Func([IDL.Principal], [], []),
-        'address': IDL.Func([], [IDL.Vec(IDL.Nat8), IDL.Text], ['query']),
-        'allowance': IDL.Func([Request__1], [Response__1], []),
-        'approve': IDL.Func([ApproveRequest], [], []),
-        'balance': IDL.Func([], [ICP], []),
-        'configureLegends': IDL.Func([IDL.Vec(Legend)], [Result], []),
-        'details': IDL.Func([TokenIdentifier], [DetailsResponse], ['query']),
-        'http_request': IDL.Func([Request], [Response], ['query']),
-        'isAdmin': IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
-        'ledgerBackup': IDL.Func([], [IDL.Vec(IDL.Opt(Token))], ['query']),
-        'ledgerReassign': IDL.Func(
-            [TokenIdentifier, User, IDL.Text],
-            [Result],
+    return IDL.Service({
+        'acceptCycles': IDL.Func([], [], []),
+        'addAsset': IDL.Func([IDL.Text, IDL.Text], [IDL.Text], []),
+        'addThumb': IDL.Func([IDL.Text, IDL.Text], [IDL.Text], []),
+        'allPayments': IDL.Func(
             [],
+            [IDL.Vec(IDL.Tuple(IDL.Principal, IDL.Vec(SubAccount__1)))],
+            ['query'],
         ),
-        'ledgerRestore': IDL.Func([IDL.Vec(IDL.Opt(Token))], [Result], []),
-        'list': IDL.Func([ListRequest], [ListResponse], []),
-        'listings': IDL.Func([], [ListingsResponse], ['query']),
+        'allSettlements': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(TokenIndex, Settlement))],
+            ['query'],
+        ),
+        'availableCycles': IDL.Func([], [IDL.Nat], ['query']),
+        'balance': IDL.Func([BalanceRequest], [BalanceResponse], ['query']),
+        'bearer': IDL.Func([TokenIdentifier__1], [Result_7], ['query']),
+        'clearPayments': IDL.Func([IDL.Principal, IDL.Vec(SubAccount__1)], [], []),
+        'details': IDL.Func([TokenIdentifier__1], [Result_8], ['query']),
+        'extensions': IDL.Func([], [IDL.Vec(Extension)], ['query']),
+        'failedSales': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(AccountIdentifier__1, SubAccount__1))],
+            ['query'],
+        ),
+        'getAssets': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(IDL.Text, IDL.Text))],
+            ['query'],
+        ),
+        'getGenes': IDL.Func([], [IDL.Vec(IDL.Vec(IDL.Nat8))], ['query']),
+        'getMinter': IDL.Func([], [IDL.Principal], ['query']),
+        'getRegistry': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(TokenIndex, AccountIdentifier__1))],
+            ['query'],
+        ),
+        'getTokens': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(TokenIndex, Metadata))],
+            ['query'],
+        ),
+        'http_request': IDL.Func([HttpRequest], [HttpResponse], ['query']),
+        'http_request_streaming_callback': IDL.Func(
+            [HttpStreamingCallbackToken],
+            [HttpStreamingCallbackResponse],
+            ['query'],
+        ),
+        'list': IDL.Func([ListRequest], [Result_3], []),
+        'listings': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(TokenIndex, Listing, Metadata))],
+            ['query'],
+        ),
         'lock': IDL.Func(
-            [TokenIdentifier, IDL.Nat64, AccountIdentifier, IDL.Vec(IDL.Nat8)],
-            [LockResponse],
+            [TokenIdentifier__1, IDL.Nat64, AccountIdentifier__1, SubAccount__1],
+            [Result_7],
             [],
         ),
-        'metadata': IDL.Func([TokenIdentifier], [MetadataResponse], ['query']),
-        'mint': IDL.Func([User], [Result_6], []),
-        'paymentsBackup': IDL.Func(
+        'metadata': IDL.Func([TokenIdentifier__1], [Result_6], ['query']),
+        'mintNFT': IDL.Func([MintingRequest], [TokenIndex], []),
+        'payments': IDL.Func([], [IDL.Opt(IDL.Vec(SubAccount__1))], ['query']),
+        'reserve': IDL.Func(
+            [IDL.Nat64, IDL.Nat64, AccountIdentifier__1, SubAccount__1],
+            [Result_5],
             [],
+        ),
+        'retreive': IDL.Func([AccountIdentifier__1], [Result_4], []),
+        'saleTransactions': IDL.Func([], [IDL.Vec(SaleTransaction)], ['query']),
+        'salesSettlements': IDL.Func(
+            [],
+            [IDL.Vec(IDL.Tuple(AccountIdentifier__1, Sale))],
+            ['query'],
+        ),
+        'salesStats': IDL.Func(
+            [AccountIdentifier__1],
             [
-                IDL.Record({
-                    'locks': IDL.Vec(IDL.Tuple(TxId, Lock)),
-                    'purchases': IDL.Vec(IDL.Tuple(TxId, Purchase)),
-                    'refunds': IDL.Vec(IDL.Tuple(TxId, Refund)),
-                    'nextTxId': TxId,
-                }),
+                IDL.Nat,
+                IDL.Opt(Time),
+                IDL.Tuple(IDL.Text, IDL.Nat64, IDL.Nat64, IDL.Bool),
+                IDL.Bool,
             ],
             ['query'],
         ),
-        'paymentsGetAvailable': IDL.Func([], [IDL.Nat], ['query']),
-        'paymentsGetPrice': IDL.Func([], [IDL.Nat64], ['query']),
-        'paymentsLock': IDL.Func([IDL.Nat64], [Result_5], []),
-        'paymentsNotify': IDL.Func([IDL.Nat64, BlockHeight], [Result_4], []),
-        'paymentsProcessRefunds': IDL.Func(
-            [IDL.Vec(NNSTransaction)],
-            [Result],
+        'setMinter': IDL.Func([IDL.Principal], [], []),
+        'settle': IDL.Func([TokenIdentifier__1], [Result_3], []),
+        'settlements': IDL.Func(
             [],
+            [IDL.Vec(IDL.Tuple(TokenIndex, AccountIdentifier__1, IDL.Nat64))],
+            ['query'],
         ),
-        'paymentsRestore': IDL.Func(
-            [
-                IDL.Record({
-                    'locks': IDL.Opt(IDL.Vec(IDL.Tuple(TxId, Lock))),
-                    'purchases': IDL.Opt(IDL.Vec(IDL.Tuple(TxId, Purchase))),
-                    'refunds': IDL.Opt(IDL.Vec(IDL.Tuple(TxId, Refund))),
-                    'nextTxId': IDL.Opt(TxId),
-                }),
-            ],
-            [],
-            [],
-        ),
-        'purgeAssets': IDL.Func([IDL.Text, IDL.Opt(IDL.Text)], [Result], []),
-        'purgeListings': IDL.Func([IDL.Text], [Result], []),
-        'readLedger': IDL.Func([], [IDL.Vec(IDL.Opt(Token))], []),
-        'settle': IDL.Func([TokenIdentifier], [Result_3], []),
         'stats': IDL.Func(
             [],
             [IDL.Nat64, IDL.Nat64, IDL.Nat64, IDL.Nat64, IDL.Nat, IDL.Nat, IDL.Nat],
             ['query'],
         ),
-        'tokenId': IDL.Func([TokenIndex], [TokenIdentifier], ['query']),
-        'tokens': IDL.Func([AccountIdentifier], [Result_2], ['query']),
-        'tokens_ext': IDL.Func([AccountIdentifier], [Result_1], ['query']),
+        'supply': IDL.Func([TokenIdentifier__1], [Result_2], ['query']),
+        'tokens': IDL.Func([AccountIdentifier__1], [Result_1], ['query']),
+        'tokens_ext': IDL.Func([AccountIdentifier__1], [Result], ['query']),
+        'transactions': IDL.Func([], [IDL.Vec(Transaction)], ['query']),
         'transfer': IDL.Func([TransferRequest], [TransferResponse], []),
-        'upload': IDL.Func([IDL.Vec(IDL.Vec(IDL.Nat8))], [], []),
-        'uploadClear': IDL.Func([], [], []),
-        'uploadFinalize': IDL.Func([IDL.Text, Meta], [Result], []),
     });
-    return LegendsNFT;
 };
 export const init = ({IDL}) => {
     return [];
