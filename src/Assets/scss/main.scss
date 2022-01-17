@@ -1,6 +1,7 @@
 @import "variables";
 @import "nav";
 @import "connect";
+@import "dashboard";
 
 body, body > * {
   font-family: "Poppins", sans-serif;
@@ -52,5 +53,18 @@ body, body > * {
   &:hover, &:focus {
     background-color: rgb(0, 128, 103);
     box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  }
+}
+
+.form-control{
+  border-color: rgba(0, 0, 0, 0.23);
+  
+  &:hover{
+    border-color: rgba(0, 0, 0, 0.87);
+  }
+  
+  &:focus{
+    box-shadow: none;
+    border-color: #00b894;
   }
 }
