@@ -19,14 +19,18 @@ const Benefits = () => {
     return (
         <Row id={"benefits_block"}>
             <Col>
-                <Row className={"button_inner"}>
-                    <Button variant={"primary"} className={"w-auto mx-auto"}>Exclusively on the Internet
-                        Computer</Button>
+                <Row>
+                    <div className={"button_inner d-flex"}>
+                        <Button variant={"primary"}>Exclusively on the Internet
+                            Computer</Button>
+                    </div>
                 </Row>
-                <Row className={"cards_inner"}>
-                    <CardItem/>
-                    <CardItem/>
-                    <CardItem/>
+                <Row>
+                    <div className={"cards_inner"}>
+                        <CardItem/>
+                        <CardItem/>
+                        <CardItem/>
+                    </div>
                 </Row>
             </Col>
         </Row>

@@ -1,5 +1,5 @@
 /* display */
-$sizes: ("xs":320px, "sm":576px, "md":768px, "lg":992px, "xl":1200px);
+$sizes: ("xs":320px, "sm":576px, "md":768px, "lg":991px, "xl":1199px, "xxl": 1398px);
 
 
 @mixin media($minmax, $media) {

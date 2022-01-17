@@ -31,7 +31,7 @@
       height: 73px;
       border-bottom: 3px solid transparent !important;
 
-      @include media('min', 'md') {
+      @include media('min', 'lg') {
         margin-left: 5em;
       }
 
