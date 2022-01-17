@@ -2,34 +2,36 @@
 
 #info_block {
   margin-top: 30px;
-  
+
   & .info_section {
     margin-top: 2.5em;
-    
-    & .big_text{
+
+    & .big_text {
       font-weight: bold;
       font-size: 4.5em;
       margin-right: 1.2em;
       line-height: 1.6em;
     }
-    
-    & .small_text{
+
+    & .small_text {
       margin-top: 1em;
       font-size: 1.7em;
     }
-    
-    & .buttons{
+
+    & .buttons {
       margin-top: 2.5em;
-      & button{
+
+      & button {
         width: auto;
-        
-        &.plug{
+        font-size: 1.1em;
+
+        &.plug {
           margin-right: 1.5em;
         }
       }
     }
   }
-  
+
   & .img_section {
     position: relative;
 
@@ -41,7 +43,7 @@
         left: -10%;
         z-index: 55;
       }
-      
+
       &:nth-child(2) {
         top: 10%;
         right: -5%;
@@ -70,6 +72,40 @@
           display: block;
         }
       }
+    }
+  }
+}
+
+#benefits_block {
+  margin-top: 10em;
+  
+  .button_inner button{
+    font-size: 1.2em;
+    text-transform: none;
+    letter-spacing: 1.5px;
+  }
+
+  .cards_inner {
+    margin-top: 5em;
+    justify-content: space-between;
+
+    .card {
+      width: 23rem;
+      padding: 3em;
+      margin-left: 5em;
+      border-radius: 10%;
+      text-align: center;
+
+      & .card-img-top {
+        border-radius: 100%;
+        width: 12rem;
+        margin: 0 auto 3em auto;
+      }
+
+      &:first-child {
+        margin-left: 0;
+      }
+
     }
   }
 }
