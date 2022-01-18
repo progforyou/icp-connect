@@ -1,6 +1,7 @@
 import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import Paginator from "./Paginator";
+import {connectStoreon} from "storeon/react";
 
 const CardItem = (props) => {
     let color = "",
@@ -23,7 +24,7 @@ const CardItem = (props) => {
     )
 }
 
-const ListDash = (props) => {
+const _ListDash = (props) => {
     const renderList = () => {
         let counter = 0;
         let result = []
@@ -40,24 +41,30 @@ const ListDash = (props) => {
         }
         return result
     }
-    console.log(props);
     return (
         <Row id={'list_dash'}>
-            <Col>
-                <Row>
-                    <Paginator/>
-                </Row>
-                <Row className={"list_cards mb-5"}>
-                    <div className={"cards_inner"}>
-                        {renderList()}
-                    </div>
-                </Row>
-                <Row>
-                    <Paginator/>
-                </Row>
-            </Col>
+            {props.tokens.length ?
+                <Col>
+                    <Row>
+                        <Paginator/>
+                    </Row>
+                    <Row className={"list_cards mb-5"}>
+                        <div className={"cards_inner"}>
+                            {renderList()}
+                        </div>
+                    </Row>
+                    <Row>
+                        <Paginator/>
+                    </Row>
+                </Col> :
+                <Col>
+                    <Row>
+                        No tokens
+                    </Row>
+                </Col>
+            }
         </Row>
     )
 }
 
-export default ListDash;
+export default connectStoreon('tokens', _ListDash);

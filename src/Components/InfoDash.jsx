@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {connectStoreon} from "storeon/react";
 
 const CardDash = (props) => {
     return (
@@ -17,7 +18,8 @@ const CardDash = (props) => {
     )
 }
 
-const InfoDash = (props) => {
+const _InfoDash = (props) => {
+    let hidden = props.tokens.length ? "" : "hidden"
     return (
         <Row id={"info_dash"}>
             <Col>
@@ -29,7 +31,7 @@ const InfoDash = (props) => {
                         <CardDash header={"PETS Token"}/>
                     </div>
                 </Row>
-                <Row className={"discord_section"}>
+                <Row className={"discord_section " + hidden}>
                     <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
                         <Row className={"discord_text"}>
                             <p>Enter your Discord name (#name) and get a special <b>Pets Holders Role!</b></p>
@@ -64,4 +66,4 @@ const InfoDash = (props) => {
     )
 }
 
-export default InfoDash;
+export default connectStoreon('tokens', _InfoDash);
