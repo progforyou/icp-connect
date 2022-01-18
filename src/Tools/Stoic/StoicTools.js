@@ -13,11 +13,11 @@ const getAddresses = async (newStoicIdentity) => {
     return addresses;
 }
 
-export const loadStoic = async (canisterId) => {
+export const loadStoic = async (tokenData) => {
     const newStoicIdentity = await createNewStoicIdentityConnection();
     console.info('Connected to Stoic Identity:', newStoicIdentity);
     let addresses = await getAddresses(newStoicIdentity);
-    let actor = await createLedgerActor(newStoicIdentity, canisterId);
+    let actor = await createLedgerActor(newStoicIdentity, tokenData[0].canisterId);
     addresses.map(e => {
         actor.tokens(e.address).then(r => {
             console.log(`Account ${e.name}: `, r);

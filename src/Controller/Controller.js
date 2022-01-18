@@ -4,7 +4,10 @@ import {loadStoic} from "../Tools/Stoic/StoicTools";
 
 class controller {
     constructor() {
-        this.canisterId = "unssi-hiaaa-aaaah-qcmya-cai"
+        this.tokenData = [
+            {standard: "EXT", canisterId: "unssi-hiaaa-aaaah-qcmya-cai", type: "ICPets"},
+            {standard: "EXT", canisterId: "dknxi-2iaaa-aaaah-qceuq-cai", type: "Bulls"}
+        ]
         if (controller._instance) {
             return controller._instance
         }
@@ -12,19 +15,17 @@ class controller {
     }
 
     async loadPlugData() {
-        return loadPlug(this.canisterId).then(r => {
+        return loadPlug(this.tokenData).then(r => {
             store.dispatch('tokens/set', r);
             return true
         })
     }
 
     async loadStoicData() {
-        loadStoic(this.canisterId)
+        return loadStoic(this.tokenData)
             .then(r => {
                 store.dispatch('tokens/set', r);
-            }).catch(e => {
-            console.log(e);
-        })
+            })
     }
 
 }
