@@ -3,6 +3,8 @@ import {connectPlug, getPlugData, getPlugNFTCollections, requestPrincipal} from 
 import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
 import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
+import RosettaApi from "../Tools/Rosetta/RosettaApi";
+import {rosettaApi} from "../Tools/Rosetta/RosettaTools";
 
 class controller {
     constructor() {
@@ -46,22 +48,20 @@ class controller {
     async loadStoicData() {
         this.stoicIdentity = await createNewStoicIdentityConnection();
         console.info('Connected to Stoic Identity:', this.stoicIdentity);
-        this.addresses = await getAddresses(this.stoicIdentity);
+        this.accounts = await getAddresses(this.stoicIdentity);
         let data = await this.getStoicData();
-        console.log(data);
         store.dispatch('setup/type', "stoic");
         store.dispatch('tokens/set', data);
         return data;
     }
 
     async getStoicData() {
-        if (this.stoicIdentity){
+        if (this.stoicIdentity && this.accounts) {
             let result = [];
             await Promise.all(this.tokenData.map(async oneToken => {
                 let actor = await createLedgerActor(this.stoicIdentity, oneToken.canisterId);
-                let tokens = await Promise.all(this.addresses.map(async e => {
-                    return await actor.tokens(e.address).then(r => {
-                        console.log(`Account ${e.name}: `, r);
+                let tokens = await Promise.all(this.accounts.map(async account => {
+                    return await actor.tokens(account.address).then(r => {
                         if (r.ok) {
                             return fetchResult(r, oneToken);
                         } else {
@@ -70,7 +70,6 @@ class controller {
                     })
                 }))
                 tokens = [].concat.apply([], tokens).filter(e => e);
-                console.log(tokens);
                 result.push({
                     collections: tokens,
                     type: oneToken.type
@@ -78,6 +77,15 @@ class controller {
             }))
             return result;
         }
+    }
+
+    async getBalance() {
+        console.log(rosettaApi)
+        this.accounts.map(account => {
+            rosettaApi.getAccountBalance(account.address).then(b => {
+                console.log(b)
+            });
+        })
     }
 
 }
