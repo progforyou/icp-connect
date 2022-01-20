@@ -14,6 +14,12 @@ export const _Dashboard = (props) => {
             timerRef.current = setTimeout(() => loadPlug(), 1000);
         })
     }
+    const loadStoic = async () => {
+        return controller().getStoicData().then(r => {
+            if (timerRef.current) clearTimeout(timerRef.current);
+            timerRef.current = setTimeout(() => loadStoic(), 1000);
+        })
+    }
     React.useEffect(() => {
         setLoad(true);
         switch (props.setup.type) {
@@ -21,7 +27,14 @@ export const _Dashboard = (props) => {
                 loadPlug().then(r => {
                     setLoad(false);
                     timerRef.current = setTimeout(() => loadPlug(), 1000);
-                })
+                });
+                break;
+            case "stoic":
+                loadStoic().then(r => {
+                    setLoad(false);
+                    timerRef.current = setTimeout(() => loadStoic(), 1000);
+                });
+                break;
         }
         setLoad(false);
         return () => clearTimeout(timerRef.current);
