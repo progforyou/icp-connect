@@ -1,10 +1,9 @@
 import {store} from "../Store";
-import {connectPlug, getPlugData, getPlugNFTCollections, requestPrincipal} from "../Tools/Plug/PlugTools";
+import {connectPlug, getPlugData, requestPrincipal} from "../Tools/Plug/PlugTools";
 import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
 import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
-import RosettaApi from "../Tools/Rosetta/RosettaApi";
-import {rosettaApi} from "../Tools/Rosetta/RosettaTools";
+/*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
 
 class controller {
     constructor() {
@@ -79,14 +78,14 @@ class controller {
         }
     }
 
-    async getBalance() {
+    /*async getBalance() {
         console.log(rosettaApi)
         this.accounts.map(account => {
             rosettaApi.getAccountBalance(account.address).then(b => {
                 console.log(b)
             });
         })
-    }
+    }*/
 
 }
 
