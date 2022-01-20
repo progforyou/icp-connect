@@ -1,6 +1,8 @@
 import {store} from "../Store";
 import {connectPlug, getPlugData, getPlugNFTCollections, requestPrincipal} from "../Tools/Plug/PlugTools";
-import {loadStoic} from "../Tools/Stoic/StoicTools";
+import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
+import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
+import {createLedgerActor} from "../Tools/Stoic/ledger";
 
 class controller {
     constructor() {
@@ -42,7 +44,10 @@ class controller {
     }
 
     async loadStoicData() {
-        let data = await loadStoic(this.tokenData);
+        this.stoicIdentity = await createNewStoicIdentityConnection();
+        console.info('Connected to Stoic Identity:', this.stoicIdentity);
+        this.addresses = await getAddresses(this.stoicIdentity);
+        let data = await this.getStoicData();
         console.log(data);
         store.dispatch('setup/type', "stoic");
         store.dispatch('tokens/set', data);
@@ -50,7 +55,29 @@ class controller {
     }
 
     async getStoicData() {
-
+        if (this.stoicIdentity){
+            let result = [];
+            await Promise.all(this.tokenData.map(async oneToken => {
+                let actor = await createLedgerActor(this.stoicIdentity, oneToken.canisterId);
+                let tokens = await Promise.all(this.addresses.map(async e => {
+                    return await actor.tokens(e.address).then(r => {
+                        console.log(`Account ${e.name}: `, r);
+                        if (r.ok) {
+                            return fetchResult(r, oneToken);
+                        } else {
+                            return undefined;
+                        }
+                    })
+                }))
+                tokens = [].concat.apply([], tokens).filter(e => e);
+                console.log(tokens);
+                result.push({
+                    collections: tokens,
+                    type: oneToken.type
+                })
+            }))
+            return result;
+        }
     }
 
 }

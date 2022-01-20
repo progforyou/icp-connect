@@ -2,7 +2,7 @@ import {createLedgerActor} from "./ledger";
 import {createNewStoicIdentityConnection} from "./stoic-identity-connect";
 import {Principal} from "@dfinity/principal";
 
-const getAddresses = async (newStoicIdentity) => {
+export const getAddresses = async (newStoicIdentity) => {
     let addresses;
     try {
         addresses = await newStoicIdentity.accounts();
@@ -13,34 +13,8 @@ const getAddresses = async (newStoicIdentity) => {
     return addresses;
 }
 
-export const loadStoic = async (tokenData) => {
-    const newStoicIdentity = await createNewStoicIdentityConnection();
-    console.info('Connected to Stoic Identity:', newStoicIdentity);
-    let addresses = await getAddresses(newStoicIdentity);
-    let result = [];
-    await Promise.all(tokenData.map(async oneToken => {
-        let actor = await createLedgerActor(newStoicIdentity, oneToken.canisterId);
-        let tokens = await Promise.all(addresses.map(async e => {
-            return await actor.tokens(e.address).then(r => {
-                console.log(`Account ${e.name}: `, r);
-                if (r.ok) {
-                    return fetchResult(r, oneToken);
-                } else {
-                    return undefined;
-                }
-            })
-        }))
-        tokens = [].concat.apply([], tokens).filter(e => e);
-        console.log(tokens);
-        result.push({
-            collections: tokens,
-            type: oneToken.type
-        })
-    }))
-    return result;
-}
 
-const fetchResult = (result, oneToken) => {
+export const fetchResult = (result, oneToken) => {
     return result.ok.map(el => {
         return {
             canister: oneToken.canisterId,
