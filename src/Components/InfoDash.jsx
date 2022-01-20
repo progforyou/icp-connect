@@ -1,6 +1,9 @@
 import React from "react";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {connectStoreon} from "storeon/react";
+import Verification from '../Data/Verification.json';
+import fs from 'fs';
+
 
 const CardDash = (props) => {
     return (
@@ -19,7 +22,16 @@ const CardDash = (props) => {
 }
 
 const _InfoDash = (props) => {
-    let hidden = props.tokens.length ? "" : "hidden"
+    const [name, setName] = React.useState("");
+    let hidden = props.tokens.length ? "" : "hidden";
+    const onSubmit = () => {
+        if (!Verification.name){
+            Verification[name] = true;
+            fs.writeFile("../Data/Verification.json", Verification, (e) => {
+                console.log(e);
+            })
+        }
+    }
     return (
         <Row id={"info_dash"}>
             <Col>
@@ -47,14 +59,14 @@ const _InfoDash = (props) => {
                                     <div>
                                         <Form>
                                             <Form.Group className="mb-3" controlId="formName">
-                                                <Form.Control type="text" placeholder="Your Discord Name"/>
+                                                <Form.Control type="text" placeholder="Your Discord Name" value={name} onChange={(e) => setName(e.target.value)}/>
                                             </Form.Group>
                                         </Form>
                                     </div>
                                 </Row>
                                 <Row className={"btn_inner"}>
                                     <div>
-                                        <Button variant={"primary"}>Verify</Button>
+                                        <Button variant={"primary"} onClick={onSubmit}>Verify</Button>
                                     </div>
                                 </Row>
                             </Col>

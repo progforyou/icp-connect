@@ -3,34 +3,25 @@ import * as agent_1 from "@dfinity/agent";
 import * as cross_fetch from 'cross-fetch';
 import * as principal_1 from '@dfinity/principal';
 
-export const loadPlug = async (tokenData) => {
-    const whiteList = tokenData.map(e => e.canisterId);
-    const connected = await connectPlug(whiteList)
-    if (connected) {
-        const principal = await requestPrincipal();
-        /*try {
-            console.log(await getAllUserNFTs({user: principal.toString()}))
-        } catch (e) {
-            console.log(e);
-        }*/
-        return await Promise.all(tokenData.map(e => {
-            return getPlugNFTCollections(principal, e);
-        }))
-    }
-    return null
+export const getPlugData = async (tokenData, principal) => {
+    return (await Promise.all(tokenData.map(e => {
+        return getPlugNFTCollections(principal, e).catch(e => {
+            return undefined;
+        });
+    }))).filter(e => e);
 }
 
-const connectPlug = async (whitelist) => {
+export const connectPlug = async (whitelist) => {
     return await window.ic.plug.requestConnect({
         whitelist: whitelist
     });
 }
 
-const requestPrincipal = async () => {
+export const requestPrincipal = async () => {
     return await window.ic.plug.agent.getPrincipal();
 }
 
-const getPlugNFTCollections = async (principal, tokenItem) => {
+export const getPlugNFTCollections = async (principal, tokenItem) => {
     console.log('getNFTCollections')
     console.log(principal);
     const IC_HOST = "https://ic0.app/";

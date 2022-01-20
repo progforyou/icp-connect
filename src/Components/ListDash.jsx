@@ -29,11 +29,14 @@ const _ListDash = (props) => {
         let counter = 0;
         let result = []
         if (props.tokens) {
+            console.log(props.tokens);
             result.push(props.tokens.map(token => {
-                return token.collections.map((el, key) => {
-                    counter += 1;
-                    return <CardItem key={key} {...el} type={token.type}/>
-                })
+                if (token) {
+                    return token.collections.map((el, key) => {
+                        counter += 1;
+                        return <CardItem key={key} {...el} type={token.type}/>
+                    })
+                }
             }))
         }
         if (counter === 2 || (counter - 2) % 3 === 0) {
