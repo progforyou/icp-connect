@@ -14,6 +14,7 @@ const CardItem = (props) => {
             color = "blue";
             break;
     }
+    console.log(props.url);
     return (
         <a target="_blank" className={"card_href " + hidden} href={props.url}>
             <Card>

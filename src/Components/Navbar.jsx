@@ -6,7 +6,7 @@ const NavApp = (props) => {
     return (
         <Navbar className={"py-0"} expand={"md"} bg="light" variant="light" id={'navbar'}>
             <Container fluid className={"py-0"}>
-                <Navbar.Brand href="#home"><Button className={"brand"} variant={"outline-primary"}>ICPets Holders
+                <Navbar.Brand href="/"><Button className={"brand"} variant={"outline-primary"}>ICPets Holders
                     Hub</Button></Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbar-nav"/>
                 <Navbar.Collapse id={"navbar-nav"} className={"justify-content-end"}>

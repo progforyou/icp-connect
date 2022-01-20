@@ -3,6 +3,7 @@ import {connectPlug, getPlugData, requestPrincipal} from "../Tools/Plug/PlugTool
 import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
 import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
+
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
 
 class controller {
@@ -25,7 +26,7 @@ class controller {
         store.dispatch('setup/type', 'plug');
         if (connected) {
             this.principal = await requestPrincipal();
-            const data = getPlugData(this.tokenData, this.principal);
+            const data = await getPlugData(this.tokenData, this.principal);
             store.dispatch('setup/type', "plug");
             store.dispatch('tokens/set', data);
             return data
@@ -35,7 +36,7 @@ class controller {
     async getPlugData() {
         if (await this.checkConnectedPlug() && window.ic.plug.agent) {
             if (!this.principal) this.principal = await requestPrincipal();
-            const data = await getPlugData(this.tokenData, this.principal);
+            let data = await getPlugData(this.tokenData, this.principal);
             store.dispatch('tokens/set', data);
         } else throw 'Not connect';
     }
@@ -86,6 +87,16 @@ class controller {
             });
         })
     }*/
+
+    async loginDiscord() {
+        /*const client = new Client();
+
+        client.login("ade5fa8e7225f69240751f0d5a4da20034c7d2ffc13fc734ffa79ea8879d7276").then(r => {
+            console.log(r)
+        }).catch(e => {
+            console.log(e);
+        });*/
+    }
 
 }
 

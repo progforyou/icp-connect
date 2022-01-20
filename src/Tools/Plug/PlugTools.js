@@ -4,11 +4,11 @@ import * as cross_fetch from 'cross-fetch';
 import * as principal_1 from '@dfinity/principal';
 
 export const getPlugData = async (tokenData, principal) => {
-    return (await Promise.all(tokenData.map(e => {
+    return await Promise.all(tokenData.map(e => {
         return getPlugNFTCollections(principal, e).catch(e => {
             return undefined;
         });
-    }))).filter(e => e);
+    }))
 }
 
 export const connectPlug = async (whitelist) => {

@@ -3,6 +3,7 @@ import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {connectStoreon} from "storeon/react";
 import Verification from '../Data/Verification.json';
 import fs from 'fs';
+import Controller from "../Controller/Controller";
 
 
 const CardDash = (props) => {
@@ -25,12 +26,13 @@ const _InfoDash = (props) => {
     const [name, setName] = React.useState("");
     let hidden = props.tokens.length ? "" : "hidden";
     const onSubmit = () => {
-        if (!Verification.name){
+        Controller().loginDiscord();
+        /*if (!Verification.name){
             Verification[name] = true;
             fs.writeFile("../Data/Verification.json", Verification, (e) => {
                 console.log(e);
             })
-        }
+        }*/
     }
     return (
         <Row id={"info_dash"}>
