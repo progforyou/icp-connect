@@ -100,6 +100,7 @@ class controller {
         });*/
     }
 
+    //#TODO метод работает, только не понятно, что где stats 
     async createNNSActor() {
         let NNSActor1 = await createNNSActor(this.tokenData[0].canisterId),
             NNSActor2 = await createNNSActor(this.tokenData[1].canisterId),

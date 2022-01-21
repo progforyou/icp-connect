@@ -11,5 +11,5 @@ export const getNNSStats = async (NNSUiActor) => {
     if (!NNSUiActor) {
         return null;
     }
-    return await NNSUiActor?.get_stats();
+    return await NNSUiActor?.stats();
 }
