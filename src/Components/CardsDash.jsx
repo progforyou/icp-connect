@@ -34,7 +34,7 @@ export const PETSCard = (props) => {
 
 export const NFTCountCard = ({count}) => {
     return (
-        <Card>
+        <Card className={"ntf_card"}>
             <Card.Body>
                 <Card.Header>
                     Your NFTs
@@ -49,15 +49,16 @@ export const NFTCountCard = ({count}) => {
 
 export const ICPPriceCard = ({data}) => {
     if (!Object.keys(data).length) return null;
+    let change = data['internet-computer'].usd_24h_change > 0 ? "up" : "down"
     return (
-        <Card>
+        <Card className={"icp_card"}>
             <Card.Body>
                 <Card.Header>
                     ICP price
                 </Card.Header>
                 <Card.Text>
-                    {data['internet-computer'].usd}
-                    <span className={"variant"}>{data['internet-computer'].usd_24h_change.toFixed(2)}</span>
+                    <span className={"price"}>{data['internet-computer'].usd}</span>
+                    <span className={"change " + change}>{data['internet-computer'].usd_24h_change.toFixed(2)}%</span>
                 </Card.Text>
             </Card.Body>
         </Card>

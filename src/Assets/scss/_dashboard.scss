@@ -28,6 +28,44 @@
         &:first-child {
           margin-left: 0;
         }
+
+        //for ntf card
+        &.ntf_card {
+          text-align: center;
+
+          p {
+            font-size: 30px;
+          }
+        }
+        
+        &.icp_card {
+          text-align: center;
+
+          p {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            
+            & .price{
+              font-size: 30px;
+            }
+            
+            & .change{
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              font-size: 15px;
+              
+              &.up{
+                color: green;
+              }
+              
+              &.down{
+                color: red;
+              }
+            }
+          }
+        }
       }
 
       @include media('max', 'lg') {
