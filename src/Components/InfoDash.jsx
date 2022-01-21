@@ -1,28 +1,12 @@
 import React from "react";
-import {Button, Card, Col, Form, Row} from "react-bootstrap";
+import {Button, Col, Form, Row} from "react-bootstrap";
 import {connectStoreon} from "storeon/react";
-import Verification from '../Data/Verification.json';
-import fs from 'fs';
 import Controller from "../Controller/Controller";
+import {ICPPriceCard, NFTCountCard, NNSCard, PETSCard} from "./CardsDash";
 
-
-const CardDash = (props) => {
-    return (
-        <Card>
-            <Card.Body>
-                <Card.Header>
-                    {props.header}
-                </Card.Header>
-                <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
-                </Card.Text>
-            </Card.Body>
-        </Card>
-    )
-}
 
 const _InfoDash = (props) => {
+    const [tokesCount, setTokesCount] = React.useState(0);
     const [name, setName] = React.useState("");
     let hidden = props.tokens.length ? "" : "hidden";
     const onSubmit = () => {
@@ -34,15 +18,22 @@ const _InfoDash = (props) => {
             })
         }*/
     }
+    React.useEffect(() => {
+        let count = 0;
+        if (props.tokens) props.tokens.map(token => {
+            count += token.collections.length;
+        })
+        setTokesCount(count);
+    }, [props.tokens])
     return (
         <Row id={"info_dash"}>
             <Col>
                 <Row className={"cards_section"}>
                     <div className={"cards_inner"}>
-                        <CardDash header={"ICP price"}/>
-                        <CardDash header={"NNS stats"}/>
-                        <CardDash header={"Your NFTs"}/>
-                        <CardDash header={"PETS Token"}/>
+                        <ICPPriceCard data={props.icp_price}/>
+                        <NNSCard />
+                        <NFTCountCard count={tokesCount}/>
+                        <PETSCard header={"PETS Token"}/>
                     </div>
                 </Row>
                 <Row className={"discord_section " + hidden}>

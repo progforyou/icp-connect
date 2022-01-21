@@ -5,6 +5,7 @@ import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
 import '../Tools/Discord/connectDiscord';
 import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
+import {getIPCtoUSD} from "../Tools/ICPprice/ICPprice";
 
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
 
@@ -102,26 +103,22 @@ class controller {
 
     //#TODO метод работает, только не понятно, что где stats 
     async createNNSActor() {
-        let NNSActor1 = await createNNSActor(this.tokenData[0].canisterId),
-            NNSActor2 = await createNNSActor(this.tokenData[1].canisterId),
-            NNSActor3 = await createNNSActor(this.tokenData[2].canisterId);
-        getNNSStats(NNSActor1).then(r => {
-            console.log(r)
-        });
-        getNNSStats(NNSActor2).then(r => {
-            console.log(r)
-        });
-        getNNSStats(NNSActor3).then(r => {
-            console.log(r)
-        });
+        return await Promise.all(this.tokenData.map(async el => {
+            let NNSActor = await createNNSActor(this.tokenData[0].canisterId); 
+            await this.getNNSStats(NNSActor);
+        }))
     }
 
 
-    async getNNSStats() {
-        /*let data = await getNNSStats(this.NNSActor);
+    async getNNSStats(NNSActor) {
+        let data = await getNNSStats(NNSActor);
         console.log(data)
-        /!*return data;*!/
-        store.dispatch('nns_stats/set', data);*/
+        store.dispatch('nns_stats/set', data);
+    }
+
+    async getICPtoUSD() {
+        let data = await getIPCtoUSD();
+        store.dispatch('icp_price/set', data);
     }
 }
 
