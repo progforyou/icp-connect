@@ -3,6 +3,8 @@ import {connectPlug, getPlugData, requestPrincipal} from "../Tools/Plug/PlugTool
 import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
 import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
+import '../Tools/Discord/connectDiscord';
+import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
 
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
 
@@ -98,6 +100,28 @@ class controller {
         });*/
     }
 
+    async createNNSActor() {
+        let NNSActor1 = await createNNSActor(this.tokenData[0].canisterId),
+            NNSActor2 = await createNNSActor(this.tokenData[1].canisterId),
+            NNSActor3 = await createNNSActor(this.tokenData[2].canisterId);
+        getNNSStats(NNSActor1).then(r => {
+            console.log(r)
+        });
+        getNNSStats(NNSActor2).then(r => {
+            console.log(r)
+        });
+        getNNSStats(NNSActor3).then(r => {
+            console.log(r)
+        });
+    }
+
+
+    async getNNSStats() {
+        /*let data = await getNNSStats(this.NNSActor);
+        console.log(data)
+        /!*return data;*!/
+        store.dispatch('nns_stats/set', data);*/
+    }
 }
 
 export default () => {

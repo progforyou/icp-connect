@@ -14,7 +14,6 @@ const CardItem = (props) => {
             color = "blue";
             break;
     }
-    console.log(props.url);
     return (
         <a target="_blank" className={"card_href " + hidden} href={props.url}>
             <Card>
@@ -30,7 +29,6 @@ const _ListDash = (props) => {
         let counter = 0;
         let result = []
         if (props.tokens) {
-            console.log(props.tokens);
             result.push(props.tokens.map(token => {
                 if (token) {
                     return token.collections.map((el, key) => {

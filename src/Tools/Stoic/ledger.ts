@@ -1,5 +1,6 @@
 import {Actor, ActorSubclass, HttpAgent, HttpAgentOptions} from '@dfinity/agent';
-import idlFactory from './ext.did';
+// @ts-ignore
+import idlFactory from '../Factories/ext.did';
 import {StoicIdentity} from './stoic-identity-types-shim.js';
 
 /** Very incomplete type information. */

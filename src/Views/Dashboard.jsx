@@ -37,10 +37,12 @@ export const _Dashboard = (props) => {
                 break;
         }
         setLoad(false);
+        controller().createNNSActor().then(r => {
+            console.log(r);
+        });
         return () => clearTimeout(timerRef.current);
     }, [])
     if (load) return null;
-    console.log(props.tokens.length);
     if (!props.tokens.length) window.location = '/';
     return (
         <Container className={"mb-5"}>

@@ -22,8 +22,6 @@ export const requestPrincipal = async () => {
 }
 
 export const getPlugNFTCollections = async (principal, tokenItem) => {
-    console.log('getNFTCollections')
-    console.log(principal);
     const IC_HOST = "https://ic0.app/";
     const DEFAULT_AGENT = new agent_1.HttpAgent({fetch: cross_fetch.default, host: IC_HOST});
     const NFTActor = getNFTActor({
@@ -31,12 +29,10 @@ export const getPlugNFTCollections = async (principal, tokenItem) => {
         agent: DEFAULT_AGENT,
         standard: tokenItem.standard
     });
-    console.log(NFTActor);
     const collections = await NFTActor.getUserTokens(principal_1.Principal.fromText(principal.toString()));
     /*try {
     } catch (e) {
         console.log(e);
     }*/
-    console.log('getNFTCollections', collections)
     return {type: tokenItem.type, collections: collections};
 }
