@@ -3,25 +3,32 @@ import {Button, Col, Form, Row} from "react-bootstrap";
 import {connectStoreon} from "storeon/react";
 import Controller from "../Controller/Controller";
 import {ICPPriceCard, NFTCountCard, NNSCard, PETSCard} from "./CardsDash";
+import {NotificationManager} from "react-notifications";
+import {SpinnerApp} from "./SpinnerApp";
 
 
 const _InfoDash = (props) => {
     const [tokesCount, setTokesCount] = React.useState(0);
     const [name, setName] = React.useState("");
+    const [loading, setLoading] = React.useState(false);
     let hidden = props.tokens.length ? "" : "hidden";
     const onSubmit = () => {
-        Controller().loginDiscord();
-        /*if (!Verification.name){
-            Verification[name] = true;
-            fs.writeFile("../Data/Verification.json", Verification, (e) => {
-                console.log(e);
+        setLoading(true);
+        Controller().addRole(name)
+            .then(r => {
+                NotificationManager.success('User updated!');
             })
-        }*/
+            .catch(e => {
+                NotificationManager.error(e.response.data.message.toString());
+            })
+            .finally(r => {
+                setLoading(false);
+            });
     }
     React.useEffect(() => {
         let count = 0;
         if (props.tokens) props.tokens.map(token => {
-            count += token.collections.length;
+            if (token) count += token.collections.length;
         })
         setTokesCount(count);
     }, [props.tokens])
@@ -31,7 +38,7 @@ const _InfoDash = (props) => {
                 <Row className={"cards_section"}>
                     <div className={"cards_inner"}>
                         <ICPPriceCard data={props.icp_price}/>
-                        <NNSCard />
+                        <NNSCard/>
                         <NFTCountCard count={tokesCount}/>
                         <PETSCard header={"PETS Token"}/>
                     </div>
@@ -52,14 +59,17 @@ const _InfoDash = (props) => {
                                     <div>
                                         <Form>
                                             <Form.Group className="mb-3" controlId="formName">
-                                                <Form.Control type="text" placeholder="Your Discord Name" value={name} onChange={(e) => setName(e.target.value)}/>
+                                                <Form.Control type="text" placeholder="Your Discord Name" value={name}
+                                                              onChange={(e) => setName(e.target.value)}/>
                                             </Form.Group>
                                         </Form>
                                     </div>
                                 </Row>
                                 <Row className={"btn_inner"}>
                                     <div>
-                                        <Button variant={"primary"} onClick={onSubmit}>Verify</Button>
+                                        <Button variant={"primary"} onClick={onSubmit}>
+                                            {loading ? <SpinnerApp/> : "Verify"}
+                                        </Button>
                                     </div>
                                 </Row>
                             </Col>

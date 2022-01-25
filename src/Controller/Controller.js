@@ -3,9 +3,12 @@ import {connectPlug, getPlugData, requestPrincipal} from "../Tools/Plug/PlugTool
 import {createNewStoicIdentityConnection} from "../Tools/Stoic/stoic-identity-connect";
 import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
-import '../Tools/Discord/connectDiscord';
 import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
 import {getIPCtoUSD} from "../Tools/ICPprice/ICPprice";
+
+import '../Tools/Discord/connectDiscord';
+import {addRole, removeRole} from "../Tools/Discord/connectDiscord";
+
 
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
 
@@ -119,6 +122,14 @@ class controller {
     async getICPtoUSD() {
         let data = await getIPCtoUSD();
         store.dispatch('icp_price/set', data);
+    }
+    
+    async addRole(name){
+        return await addRole(name);
+    }
+    
+    async removeRole(name){
+        return await removeRole(name);
     }
 }
 

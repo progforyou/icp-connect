@@ -2,6 +2,8 @@ import React from "react";
 import {Card, Col, Row} from "react-bootstrap";
 import Paginator from "./Paginator";
 import {connectStoreon} from "storeon/react";
+import Controller from "../Controller/Controller";
+import {NotificationManager} from "react-notifications";
 
 const CardItem = (props) => {
     let color = "",
@@ -43,6 +45,17 @@ const _ListDash = (props) => {
         }
         return result
     }
+    React.useEffect(() => {
+        if (!props.tokens.length) {
+            Controller().removeRole()
+                .then(r => {
+                    NotificationManager.error('User was updated!');
+                })
+                .catch(e => {
+                    NotificationManager.error(e.message.toString());
+                });
+        }
+    }, [props.tokens])
     return (
         <Row id={'list_dash'}>
             {props.tokens.length ?
