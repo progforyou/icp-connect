@@ -2,16 +2,14 @@ import React from "react";
 import {Card} from "react-bootstrap";
 
 export const NNSCard = (props) => {
-    console.log(props);
     return (
-        <Card>
+        <Card className={"ntf_card"}>
             <Card.Body>
                 <Card.Header>
-                    NNS stats
+                    Pets Avg Price
                 </Card.Header>
                 <Card.Text>
-                    Floor
-                    <ul>
+                    {/*<ul>
                         {props.data.map(el => {
                             return (
                                 <li>
@@ -19,7 +17,8 @@ export const NNSCard = (props) => {
                                 </li>
                             )
                         })}
-                    </ul>
+                    </ul>*/}
+                        {/*Pets Avg Price:*/} {props.data.find(e => e.token.type === "ICPets").stats.average}
                 </Card.Text>
             </Card.Body>
         </Card>
@@ -29,7 +28,7 @@ export const NNSCard = (props) => {
 
 export const PETSCard = (props) => {
     return (
-        <Card>
+        <Card className={"ntf_card"}>
             <Card.Body>
                 <Card.Header>
                     PETS Token

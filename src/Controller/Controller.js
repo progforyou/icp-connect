@@ -7,7 +7,7 @@ import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
 import {getIPCtoUSD} from "../Tools/ICPprice/ICPprice";
 
 import '../Tools/Discord/connectDiscord';
-import {addRole, removeRole} from "../Tools/Discord/connectDiscord";
+import {addRole, getRoleUser, removeRole} from "../Tools/Discord/connectDiscord";
 
 
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
@@ -56,6 +56,7 @@ class controller {
 
     async loadStoicData() {
         this.stoicIdentity = await createNewStoicIdentityConnection();
+        this.principal = this.stoicIdentity.getPrincipal();
         console.info('Connected to Stoic Identity:', this.stoicIdentity);
         this.accounts = await getAddresses(this.stoicIdentity);
         let data = await this.getStoicData();
@@ -86,6 +87,7 @@ class controller {
                     type: oneToken.type
                 })
             }))
+            store.dispatch('tokens/set', result);
             return result;
         }
     }
@@ -109,7 +111,6 @@ class controller {
             return await getNNSStats(actor.actor);
         }))
         data = [].concat.apply([], data).map((e, k) => ({token: this.tokenData[k], stats: e}));
-        console.log(data)
         store.dispatch('nns_stats/set', data);
     }
 
@@ -118,12 +119,22 @@ class controller {
         store.dispatch('icp_price/set', data);
     }
 
-    async addRole(name) {
-        return await addRole(name);
+    async addRole(name, discriminator) {
+        return await addRole(name, discriminator, this.principal.toText()).then(r  => {
+            store.dispatch('setup/verify', true);
+            return r
+        });
     }
 
-    async removeRole(name) {
-        return await removeRole(name);
+    async removeRole(name, discriminator) {
+        return await removeRole(name, discriminator, this.principal.toText()).then(r  => {
+            store.dispatch('setup/verify', false);
+            return r
+        });
+    }
+    
+    async checkDiscordStatus(){
+        return await getRoleUser(this.principal.toText())
     }
 }
 

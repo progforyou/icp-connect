@@ -27,7 +27,6 @@ export async function createLedgerActor(stoicIdentity: StoicIdentity, canisterId
         agent,
         canisterId: canisterId,
     });
-    console.log(ledgerActor);
     return ledgerActor;
 }
 

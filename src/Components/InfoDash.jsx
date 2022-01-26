@@ -11,10 +11,11 @@ const _InfoDash = (props) => {
     const [tokesCount, setTokesCount] = React.useState(0);
     const [name, setName] = React.useState("");
     const [loading, setLoading] = React.useState(false);
+    const [discriminator, setDiscriminator] = React.useState("");
     let hidden = props.tokens.length ? "" : "hidden";
     const onSubmit = () => {
         setLoading(true);
-        Controller().addRole(name)
+        Controller().addRole(name, discriminator)
             .then(r => {
                 NotificationManager.success('User updated!');
             })
@@ -43,39 +44,44 @@ const _InfoDash = (props) => {
                         <PETSCard header={"PETS Token"}/>
                     </div>
                 </Row>
-                <Row className={"discord_section " + hidden}>
-                    <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
-                        <Row className={"discord_text"}>
-                            <p>Enter your Discord name (#name) and get a special <b>Pets Holders Role!</b></p>
-                        </Row>
-                        <Row className={"discord_href"}>
-                            <a href="#qwe">Read more info</a>
-                        </Row>
-                    </Col>
-                    <Col xl={6} lg={6} xs={12} className={"discord_form"}>
-                        <Row className={"m-auto"}>
-                            <Col>
-                                <Row className={"input_inner"}>
-                                    <div>
-                                        <Form>
-                                            <Form.Group className="mb-3" controlId="formName">
-                                                <Form.Control type="text" placeholder="Your Discord Name" value={name}
-                                                              onChange={(e) => setName(e.target.value)}/>
-                                            </Form.Group>
-                                        </Form>
-                                    </div>
-                                </Row>
-                                <Row className={"btn_inner"}>
-                                    <div>
-                                        <Button variant={"primary"} onClick={onSubmit}>
-                                            {loading ? <SpinnerApp/> : "Verify"}
-                                        </Button>
-                                    </div>
-                                </Row>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
+                {props.verify ? <div>You already verify!</div> :
+                    <Row className={"discord_section " + hidden}>
+                        <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
+                            <Row className={"discord_text"}>
+                                <p>Enter your Discord name (#name) and get a special <b>Pets Holders Role!</b></p>
+                            </Row>
+                            <Row className={"discord_href"}>
+                                <a href="#qwe">Read more info</a>
+                            </Row>
+                        </Col>
+                        <Col xl={6} lg={6} xs={12} className={"discord_form"}>
+                            <Row className={"m-auto"}>
+                                <Col>
+                                    <Row className={"input_inner"}>
+                                        <div className={"form_inner"}>
+                                            <Form>
+                                                <Form.Group className="mb-3" controlId="formName">
+                                                    <Form.Control type="text" placeholder="Your Discord Name"
+                                                                  value={name}
+                                                                  onChange={(e) => setName(e.target.value)}/>
+                                                    <Form.Control type="text" placeholder="#"
+                                                                  className={"discriminator"} value={discriminator}
+                                                                  onChange={(e) => setDiscriminator(e.target.value)}/>
+                                                </Form.Group>
+                                            </Form>
+                                        </div>
+                                    </Row>
+                                    <Row className={"btn_inner"}>
+                                        <div>
+                                            <Button variant={"primary"} onClick={onSubmit}>
+                                                {loading ? <SpinnerApp/> : "Verify"}
+                                            </Button>
+                                        </div>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Col>
+                    </Row>}
             </Col>
         </Row>
     )

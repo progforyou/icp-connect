@@ -125,9 +125,18 @@
       }
 
       .input_inner {
-        .form-control {
-          padding: 17px 14px;
+        .form_inner form > div {
+          display: flex;
+
+          .form-control {
+            padding: 17px 14px;
+            
+            &.discriminator{
+              width: 100px;
+            }
+          }
         }
+
       }
 
       .btn_inner {

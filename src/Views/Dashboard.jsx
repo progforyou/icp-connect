@@ -32,24 +32,39 @@ export const _Dashboard = (props) => {
         timerRef.current = setTimeout(() => loadAll(), 2000);
         return true;
     }
+    const loadOne = async () => {
+        try {
+            let data = await controller().checkDiscordStatus();
+            props.dispatch('setup/verify', true);
+        } catch (e) {
+            props.dispatch('setup/verify', false);
+            return null;
+        }
+    }
     React.useEffect(() => {
         setLoad(true);
-        loadAll().then(r => {
-            setLoad(false);
-            if (timerRef.current) clearTimeout(timerRef.current);
-            timerRef.current = setTimeout(() => loadAll(), 1000);
-        }).catch(e => {
-            setLoad(false);
-            NotificationManager.error(e.toString());
-            window.location = '/';
-        })
+        const init = async () => {
+            try {
+                await loadOne();
+                await loadAll();
+                setLoad(false);
+                if (timerRef.current) clearTimeout(timerRef.current);
+                timerRef.current = setTimeout(() => loadAll(), 2000);
+            } catch (e) {
+                setLoad(false);
+                NotificationManager.error(e.toString());
+                /*window.location = '/';*/
+            }
+        }
+        init();
         return () => clearTimeout(timerRef.current);
     }, [])
+    
     if (load) return null;
     if (!props.tokens.length) window.location = '/';
     return (
         <Container className={"mb-5"}>
-            <InfoDash {...props}/>
+            <InfoDash {...props} verify={props.setup.verify}/>
             <ListDash {...props}/>
         </Container>
     )
