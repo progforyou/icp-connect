@@ -20,7 +20,13 @@ const _InfoDash = (props) => {
                 NotificationManager.success('User updated!');
             })
             .catch(e => {
-                NotificationManager.error(e.response.data.message.toString());
+                if (e.response.status === 400){
+                    NotificationManager.success('User updated!');
+                    console.log(e.response.data.data);
+                    props.dispatch('setup/verify', e.response.data.data);
+                } else {
+                    NotificationManager.error(e.response.data.message.toString());
+                }
             })
             .finally(r => {
                 setLoading(false);
@@ -35,6 +41,7 @@ const _InfoDash = (props) => {
     }, [props.tokens])
     React.useEffect(() => {
         if (props.verify){
+            console.log(props.verify);
             if (Object.keys(props.verify).length){
                 setName(props.verify.user);
                 setDiscriminator(props.verify.discriminator);

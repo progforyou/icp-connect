@@ -37,7 +37,11 @@ export const _Dashboard = (props) => {
             let data = await controller().checkDiscordStatus();
             props.dispatch('setup/verify', data);
         } catch (e) {
-            props.dispatch('setup/verify', {});
+            if (e.response.status === 400){
+                 props.dispatch('setup/verify', e.response.data.data);
+            } else {
+                props.dispatch('setup/verify', {});
+            }
             return null;
         }
     }
