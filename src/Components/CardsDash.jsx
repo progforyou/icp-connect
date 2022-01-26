@@ -2,6 +2,7 @@ import React from "react";
 import {Card} from "react-bootstrap";
 
 export const NNSCard = (props) => {
+    console.log(props);
     return (
         <Card>
             <Card.Body>
@@ -9,7 +10,16 @@ export const NNSCard = (props) => {
                     NNS stats
                 </Card.Header>
                 <Card.Text>
-                     content.
+                    Floor
+                    <ul>
+                        {props.data.map(el => {
+                            return (
+                                <li>
+                                    {el.token.type}: {el.stats.floor}
+                                </li>
+                            )
+                        })}
+                    </ul>
                 </Card.Text>
             </Card.Body>
         </Card>

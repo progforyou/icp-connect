@@ -38,7 +38,7 @@ const _InfoDash = (props) => {
                 <Row className={"cards_section"}>
                     <div className={"cards_inner"}>
                         <ICPPriceCard data={props.icp_price}/>
-                        <NNSCard/>
+                        <NNSCard data={props.nns_stats}/>
                         <NFTCountCard count={tokesCount}/>
                         <PETSCard header={"PETS Token"}/>
                     </div>
@@ -81,4 +81,4 @@ const _InfoDash = (props) => {
     )
 }
 
-export default connectStoreon('tokens', _InfoDash);
+export default connectStoreon('tokens', 'nns_stats', _InfoDash);

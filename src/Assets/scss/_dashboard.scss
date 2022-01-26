@@ -37,30 +37,37 @@
             font-size: 30px;
           }
         }
-        
+
+        & .card-body {
+          display: flex;
+          flex-direction: column;
+        }
+
         &.icp_card {
           text-align: center;
 
           p {
+            width: 100%;
+            margin: auto;
             position: relative;
             display: flex;
             justify-content: center;
-            
-            & .price{
+
+            & .price {
               font-size: 30px;
             }
-            
-            & .change{
+
+            & .change {
               position: absolute;
               bottom: 0;
               right: 0;
               font-size: 15px;
-              
-              &.up{
+
+              &.up {
                 color: green;
               }
-              
-              &.down{
+
+              &.down {
                 color: red;
               }
             }
@@ -215,6 +222,14 @@
         height: 100%;
         position: relative;
         padding: 0;
+
+        & .token_id {
+          position: absolute;
+          top: 5px;
+          left: 10px;
+          font-size: 15px;
+          color: gray;
+        }
 
         & .card-img-top {
           border-radius: 100%;

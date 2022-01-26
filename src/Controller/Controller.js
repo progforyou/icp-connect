@@ -30,7 +30,9 @@ class controller {
         const connected = await connectPlug(whiteList);
         store.dispatch('setup/connected', connected);
         store.dispatch('setup/type', 'plug');
+        await this.setPlugActors();
         if (connected) {
+            await this.getNNSStats();
             this.principal = await requestPrincipal();
             const data = await getPlugData(this.tokenData, this.principal);
             store.dispatch('setup/type', "plug");
@@ -43,6 +45,7 @@ class controller {
         if (await this.checkConnectedPlug() && window.ic.plug.agent) {
             if (!this.principal) this.principal = await requestPrincipal();
             let data = await getPlugData(this.tokenData, this.principal);
+            data = [].concat.apply([], data).filter(e => e);
             store.dispatch('tokens/set', data);
         } else throw 'Not connect';
     }
@@ -56,6 +59,8 @@ class controller {
         console.info('Connected to Stoic Identity:', this.stoicIdentity);
         this.accounts = await getAddresses(this.stoicIdentity);
         let data = await this.getStoicData();
+        await this.setStoicActors();
+        await this.getNNSStats();
         store.dispatch('setup/type', "stoic");
         store.dispatch('tokens/set', data);
         return data;
@@ -85,36 +90,25 @@ class controller {
         }
     }
 
-    /*async getBalance() {
-        console.log(rosettaApi)
-        this.accounts.map(account => {
-            rosettaApi.getAccountBalance(account.address).then(b => {
-                console.log(b)
-            });
-        })
-    }*/
-
-    async loginDiscord() {
-        /*const client = new Client();
-
-        client.login("ade5fa8e7225f69240751f0d5a4da20034c7d2ffc13fc734ffa79ea8879d7276").then(r => {
-            console.log(r)
-        }).catch(e => {
-            console.log(e);
-        });*/
-    }
-
-    //#TODO метод работает, только не понятно, что где stats 
-    async createNNSActor() {
-        return await Promise.all(this.tokenData.map(async el => {
-            let NNSActor = await createNNSActor(this.tokenData[0].canisterId); 
-            await this.getNNSStats(NNSActor);
+    async setStoicActors() {
+        this.actors = await Promise.all(this.tokenData.map(async oneToken => {
+            return {token: oneToken, actor: await createLedgerActor(this.stoicIdentity, oneToken.canisterId)}
         }))
     }
 
 
-    async getNNSStats(NNSActor) {
-        let data = await getNNSStats(NNSActor);
+    async setPlugActors() {
+        this.actors = await Promise.all(this.tokenData.map(async oneToken => {
+            return {token: oneToken, actor: await createNNSActor(oneToken.canisterId)};
+        }))
+    }
+
+
+    async getNNSStats() {
+        let data = await Promise.all(this.actors.map(async actor => {
+            return await getNNSStats(actor.actor);
+        }))
+        data = [].concat.apply([], data).map((e, k) => ({token: this.tokenData[k], stats: e}));
         console.log(data)
         store.dispatch('nns_stats/set', data);
     }
@@ -123,12 +117,12 @@ class controller {
         let data = await getIPCtoUSD();
         store.dispatch('icp_price/set', data);
     }
-    
-    async addRole(name){
+
+    async addRole(name) {
         return await addRole(name);
     }
-    
-    async removeRole(name){
+
+    async removeRole(name) {
         return await removeRole(name);
     }
 }

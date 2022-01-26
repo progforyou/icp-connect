@@ -19,6 +19,7 @@ const CardItem = (props) => {
     return (
         <a target="_blank" className={"card_href " + hidden} href={props.url}>
             <Card>
+                <span className={"token_id"}>#{!hidden ? props.index.toString() : null}</span>
                 <Card.Img variant="top" src={props.url}/>
                 <div className={"info_card " + color}><span>{props.type}</span></div>
             </Card>
