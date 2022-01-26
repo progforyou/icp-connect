@@ -121,14 +121,14 @@ class controller {
 
     async addRole(name, discriminator) {
         return await addRole(name, discriminator, this.principal.toText()).then(r  => {
-            store.dispatch('setup/verify', true);
+            store.dispatch('setup/verify', r.data);
             return r
         });
     }
 
     async removeRole(name, discriminator) {
         return await removeRole(name, discriminator, this.principal.toText()).then(r  => {
-            store.dispatch('setup/verify', false);
+            store.dispatch('setup/verify', {});
             return r
         });
     }

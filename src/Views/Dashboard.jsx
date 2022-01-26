@@ -35,9 +35,9 @@ export const _Dashboard = (props) => {
     const loadOne = async () => {
         try {
             let data = await controller().checkDiscordStatus();
-            props.dispatch('setup/verify', true);
+            props.dispatch('setup/verify', data);
         } catch (e) {
-            props.dispatch('setup/verify', false);
+            props.dispatch('setup/verify', {});
             return null;
         }
     }
