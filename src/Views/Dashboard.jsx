@@ -8,6 +8,7 @@ import {NotificationManager} from "react-notifications";
 
 export const _Dashboard = (props) => {
     const timerRef = React.useRef(null);
+    const timerLazyRef = React.useRef(null);
     const [load, setLoad] = React.useState(false);
     const loadPlug = async () => {
         return await controller().getPlugData();
@@ -36,13 +37,16 @@ export const _Dashboard = (props) => {
         try {
             let data = await controller().checkDiscordStatus();
             props.dispatch('setup/verify', data);
+            if (timerLazyRef.current) clearTimeout(timerLazyRef.current);
+            timerLazyRef.current = setTimeout(() => loadOne(), 10000);
         } catch (e) {
-            if (e.response.status === 400){
-                 props.dispatch('setup/verify', e.response.data.data);
+            if (timerLazyRef.current) clearTimeout(timerLazyRef.current);
+            timerLazyRef.current = setTimeout(() => loadOne(), 10000);
+            if (e.response.status === 400) {
+                props.dispatch('setup/verify', e.response.data.data);
             } else {
                 props.dispatch('setup/verify', {});
             }
-            return null;
         }
     }
     React.useEffect(() => {
@@ -52,18 +56,18 @@ export const _Dashboard = (props) => {
                 await loadOne();
                 await loadAll();
                 setLoad(false);
-                if (timerRef.current) clearTimeout(timerRef.current);
-                timerRef.current = setTimeout(() => loadAll(), 2000);
             } catch (e) {
                 setLoad(false);
                 NotificationManager.error(e.toString());
-                /*window.location = '/';*/
             }
         }
         init();
-        return () => clearTimeout(timerRef.current);
+        return () => {
+            clearTimeout(timerRef.current);
+            clearTimeout(timerLazyRef.current);
+        }
     }, [])
-    
+
     if (load) return null;
     if (!props.tokens.length) window.location = '/';
     return (

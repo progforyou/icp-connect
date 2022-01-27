@@ -21,12 +21,17 @@ const _InfoDash = (props) => {
                 NotificationManager.success('User updated!');
             })
             .catch(e => {
-                if (e.response.status === 400){
-                    NotificationManager.success('User updated!');
-                    console.log(e.response.data.data);
-                    props.dispatch('setup/verify', e.response.data.data);
+                if (e.response) {
+                    if (e.response.status === 400) {
+                        NotificationManager.success('User updated!');
+                        console.log(e.response.data.data);
+                        props.dispatch('setup/verify', e.response.data.data);
+                    }
+                    else {
+                        NotificationManager.error(e.response.data.message.toString());
+                    }
                 } else {
-                    NotificationManager.error(e.response.data.message.toString());
+                    NotificationManager.error(e.toString());
                 }
             })
             .finally(r => {
@@ -41,9 +46,9 @@ const _InfoDash = (props) => {
         setTokesCount(count);
     }, [props.tokens])
     React.useEffect(() => {
-        if (props.verify){
+        if (props.verify) {
             console.log(props.verify);
-            if (Object.keys(props.verify).length){
+            if (Object.keys(props.verify).length) {
                 setName(props.verify.user);
                 setDiscriminator(props.verify.discriminator);
             }
@@ -78,7 +83,8 @@ const _InfoDash = (props) => {
                                             <Form>
                                                 <Form.Group className="mb-3" controlId="formName">
                                                     <Form.Control type="text" placeholder="Your Discord Name"
-                                                                  value={name} className={isError ? "error" : "" } onBlur={() => name.length ? setIsError(false) : setIsError(true)}
+                                                                  value={name} className={isError ? "error" : ""}
+                                                                  onBlur={() => name.length ? setIsError(false) : setIsError(true)}
                                                                   onChange={(e) => {
                                                                       if (e.target.value) setIsError(false)
                                                                       else setIsError(true)
