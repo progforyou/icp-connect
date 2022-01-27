@@ -11,7 +11,7 @@ body, body > * {
 .btn {
   display: flex;
   align-items: center;
-  
+
   & > * {
     margin: auto;
   }
@@ -55,21 +55,27 @@ body, body > * {
     background-color: rgb(0, 128, 103);
     box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
   }
+
+  &.disabled, &:disabled {
+    color: white;
+    background-color: #00b894;
+    cursor: not-allowed;
+  }
 }
 
-.form-control{
+.form-control {
   border-color: rgba(0, 0, 0, 0.23);
-  
-  &:hover{
+
+  &:hover {
     border-color: rgba(0, 0, 0, 0.87);
   }
-  
-  &:focus{
+
+  &:focus {
     box-shadow: none;
     border-color: #00b894;
   }
 }
 
-.navbar-toggler:focus{
+.navbar-toggler:focus {
   box-shadow: none;
 }

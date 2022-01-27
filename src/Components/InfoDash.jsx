@@ -12,6 +12,7 @@ const _InfoDash = (props) => {
     const [name, setName] = React.useState("");
     const [loading, setLoading] = React.useState(false);
     const [discriminator, setDiscriminator] = React.useState("");
+    const [isError, setIsError] = React.useState(false);
     let hidden = props.tokens.length ? "" : "hidden";
     const onSubmit = () => {
         setLoading(true);
@@ -77,8 +78,12 @@ const _InfoDash = (props) => {
                                             <Form>
                                                 <Form.Group className="mb-3" controlId="formName">
                                                     <Form.Control type="text" placeholder="Your Discord Name"
-                                                                  value={name}
-                                                                  onChange={(e) => setName(e.target.value)}/>
+                                                                  value={name} className={isError ? "error" : "" } onBlur={() => name.length ? setIsError(false) : setIsError(true)}
+                                                                  onChange={(e) => {
+                                                                      if (e.target.value) setIsError(false)
+                                                                      else setIsError(true)
+                                                                      setName(e.target.value)
+                                                                  }}/>
                                                     <Form.Control type="text" placeholder="#"
                                                                   className={"discriminator"} value={discriminator}
                                                                   onChange={(e) => setDiscriminator(e.target.value)}/>
@@ -88,7 +93,7 @@ const _InfoDash = (props) => {
                                     </Row>
                                     <Row className={"btn_inner"}>
                                         <div>
-                                            <Button variant={"primary"} onClick={onSubmit}>
+                                            <Button variant={"primary"} onClick={onSubmit} disabled={isError}>
                                                 {loading ? <SpinnerApp/> : "Verify"}
                                             </Button>
                                         </div>
