@@ -69,7 +69,10 @@ export const _Dashboard = (props) => {
     }, [])
 
     if (load) return null;
-    if (!props.tokens.length) window.location = '/';
+    if (!props.tokens.length) {
+        //#TODO add remove role
+        window.location = '/';
+    }
     return (
         <Container className={"mb-5"}>
             <InfoDash {...props} verify={props.setup.verify}/>

@@ -1,7 +1,8 @@
 @import "variables";
 
 #navbar {
-  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 14%), 0px 1px 10px 0px rgb(0 0 0 / 12%);
+  border-bottom: $white 1px solid;
+  background-color: #ffffff;
 
   & .container-fluid {
     @include media('min', 'md') {
@@ -15,15 +16,23 @@
     height: 73px;
 
     & .brand {
+      @include style_text(16px, 30px);
       margin: auto 0;
       font-weight: bold;
+      text-transform: uppercase;
+      text-align: left;
+
+
+      svg {
+        margin-right: .7em;
+      }
     }
   }
 
 
   & .nav-link {
-    font-weight: bold;
-    font-size: 1.2em;
+    @include style_text(16px);
+    font-weight: 500;
     color: inherit;
 
     &.menu_item {
@@ -34,12 +43,25 @@
       @include media('min', 'lg') {
         margin-left: 5em;
       }
+      
+      svg path, svg circle{
+        transition: fill .15s ease-in-out;
+      }
 
 
       &:hover, &:active {
-        color: #00d092 !important;
-        border-bottom: 3px solid #00d092 !important;
+        color: #02AAB0 !important;
         background-color: #fff;
+
+        svg path, svg circle {
+          fill: #02AAB0;
+        }
+
+        .discord {
+          & path {
+            fill: white;
+          }
+        }
       }
 
       & .item {

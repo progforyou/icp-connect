@@ -1,6 +1,7 @@
 /* display */
 $sizes: ("xs":320px, "sm":576px, "md":768px, "lg":991px, "xl":1199px, "xxl": 1398px);
-
+$white: #EFEFEF;
+$black: #303345;
 
 @mixin media($minmax, $media) {
   @each $size, $resolution in $sizes {
@@ -10,4 +11,11 @@ $sizes: ("xs":320px, "sm":576px, "md":768px, "lg":991px, "xl":1199px, "xxl": 139
       }
     }
   }
+}
+
+@mixin style_text($fs, $lh: initial, $ls: 0) {
+  font-size: $fs;
+  font-style: normal;
+  line-height: $lh;
+  letter-spacing: $ls;
 }
