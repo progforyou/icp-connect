@@ -1,7 +1,9 @@
 /* display */
 $sizes: ("xs":320px, "sm":576px, "md":768px, "lg":991px, "xl":1199px, "xxl": 1398px);
-$white: #EFEFEF;
+$white-gray: #EFEFEF;
+$white: #FFFFFF;
 $black: #303345;
+$green: #02AAB0;
 
 @mixin media($minmax, $media) {
   @each $size, $resolution in $sizes {
