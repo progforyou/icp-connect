@@ -45,15 +45,6 @@ const _InfoDash = (props) => {
         })
         setTokesCount(count);
     }, [props.tokens])
-    React.useEffect(() => {
-        if (props.verify) {
-            console.log(props.verify);
-            if (Object.keys(props.verify).length) {
-                setName(props.verify.user);
-                setDiscriminator(props.verify.discriminator);
-            }
-        }
-    }, [props.verify])
     return (
         <Row id={"info_dash"}>
             <Col>
@@ -65,7 +56,7 @@ const _InfoDash = (props) => {
                         <PETSCard header={"PETS Token"}/>
                     </div>
                 </Row>
-                {props.verify?.status ? <div>You already {props.verify.user} verify!</div> :
+                {props.verify ? <div>You already {props.verify.user.name} verify!</div> :
                     <Row className={"discord_section " + hidden}>
                         <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
                             <Row className={"discord_text"}>

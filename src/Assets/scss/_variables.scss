@@ -4,6 +4,7 @@ $white-gray: #EFEFEF;
 $white: #FFFFFF;
 $black: #303345;
 $green: #02AAB0;
+$button-green-grad: linear-gradient(90deg, #02ACB0 0%, #00C8AC 100%);
 
 @mixin media($minmax, $media) {
   @each $size, $resolution in $sizes {

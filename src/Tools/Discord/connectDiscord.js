@@ -9,8 +9,8 @@ const DiscordClient = axios.create({
 });
 
 
-export const addRole = async (name, discriminator, principal) => {
-    return await DiscordClient.post('/api/user/addRole', {user: name, principal, discriminator});
+export const addRole = async (name, discriminator, principal, addresses) => {
+    return await DiscordClient.post('/api/user/addRole', {user: name, principal, discriminator, addresses});
 }
 
 export const removeRole = async (name, discriminator, principal) => {

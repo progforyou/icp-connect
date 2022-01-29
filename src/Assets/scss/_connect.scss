@@ -1,20 +1,24 @@
 @import "variables";
 
 #info_block {
-  margin-top: 30px;
+  margin-top: 7rem;
 
   & .info_section {
-    margin-top: 2.5em;
+    margin-top: 3rem;
 
     & .big_text {
-      font-weight: bold;
-      font-size: 4.5em;
+      @include style_text(45px, 59px);
+      font-weight: 900;
       margin-right: 1.2em;
-      line-height: 1.6em;
+      text-transform: uppercase;
+      
+      & .green_text{
+        color: $green;
+      }
     }
 
     & .small_text {
-      margin-top: 1em;
+      margin-top: 2rem;
       font-size: 1.7em;
     }
 

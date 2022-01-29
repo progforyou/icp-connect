@@ -42,7 +42,9 @@ class controller {
     }
 
     async getPlugData() {
-        if (await this.checkConnectedPlug() && window.ic.plug.agent) {
+        console.log(await window.ic.plug.createAgent());
+        if (await window.ic.plug.createAgent()) {
+            console.log(window.ic.plug);
             if (!this.principal) this.principal = await requestPrincipal();
             let data = await getPlugData(this.tokenData, this.principal);
             data = [].concat.apply([], data).filter(e => e);
@@ -120,7 +122,14 @@ class controller {
     }
 
     async addRole(name, discriminator) {
-        return await addRole(name, discriminator, this.principal.toText()).then(r  => {
+        let accounts = [];
+        this.accounts.map(e => {
+            if (typeof e === 'object'){
+                accounts.push(e.address);
+            }
+        })
+        console.log(this.accounts);
+        return await addRole(name, discriminator, this.principal.toText(), accounts).then(r  => {
             store.dispatch('setup/verify', r.data);
             return r
         });
