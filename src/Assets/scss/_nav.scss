@@ -44,6 +44,11 @@
       @include media('min', 'lg') {
         margin-left: 5em;
       }
+      
+      svg{
+        width: 21px;
+        height: 21px;
+      }
 
       svg path, svg circle {
         transition: fill .15s ease-in-out;
