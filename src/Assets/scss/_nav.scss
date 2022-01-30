@@ -31,6 +31,7 @@
 
 
   & .nav-link {
+    font-family: $dm_ff;
     @include style_text(16px);
     font-weight: 500;
     color: inherit;
@@ -43,8 +44,8 @@
       @include media('min', 'lg') {
         margin-left: 5em;
       }
-      
-      svg path, svg circle{
+
+      svg path, svg circle {
         transition: fill .15s ease-in-out;
       }
 
