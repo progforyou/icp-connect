@@ -9,7 +9,7 @@ export const NNSCard = (props) => {
     return (
         <Card className={"ntf_card"}>
             <Card.Body>
-                <div>
+                <div className={"card_text"}>
                     <div className={"card_title"}>
                         Pets Avg Price
                     </div>
@@ -32,12 +32,12 @@ export const PETSCard = (props) => {
     return (
         <Card>
             <Card.Body>
-                <div>
+                <div className={"card_text"}>
                     <div className={"card_title"}>
                         PETS token
                     </div>
                     <div className={"card_description"}>
-                        Coming soon
+                        Soon
                     </div>
                 </div>
                 <div>

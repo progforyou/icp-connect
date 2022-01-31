@@ -69,8 +69,10 @@ const _InfoDash = (props) => {
                 {/*{props.verify ? <div>You already {props.verify.user.name} verify!</div> :*/}
                 <Row className={"discord_section " + hidden}>
                     <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
-                        <Row className={"discord_text"}>
-                            <p>Enter your Discord name <span>(#name)</span> and get a special Pets Holders Role!</p>
+                        <Row>
+                            <div className={"discord_text"}>
+                                <p>Enter your Discord name <span>(#name)</span> and get a special Pets Holders Role!</p>
+                            </div>
                         </Row>
                         <Row className={"discord_href"}>
                             <div className={"d-flex"}>

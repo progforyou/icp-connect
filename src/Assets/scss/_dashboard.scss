@@ -10,6 +10,13 @@
     .cards_inner {
       display: flex;
 
+      @include media('max', 'lg') {
+        overflow: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+
       .card {
         font-family: $lato_ff;
         width: 100%;
@@ -28,21 +35,36 @@
           padding: 0;
           font-family: $lato_ff;
 
-          .card_title {
-            @include style_text(14px, 21px);
-            font-weight: 400;
+          @include media('max', 'xl') {
+            flex-direction: column-reverse;
+            text-align: center;
           }
 
-          .card_description {
-            @include style_text(20px, 32px);
-            font-weight: 700;
+          .card_text {
+            display: flex;
+            flex-direction: column;
 
-            & .icp_text {
+            @include media('max', 'xl') {
+              flex-direction: column-reverse;
+            }
+
+            .card_title {
               @include style_text(14px, 21px);
               font-weight: 400;
-              color: #8181A5
+            }
+
+            .card_description {
+              @include style_text(20px, 32px);
+              font-weight: 700;
+
+              & .icp_text {
+                @include style_text(14px, 21px);
+                font-weight: 400;
+                color: #8181A5
+              }
             }
           }
+
 
           .img {
             display: flex;
@@ -50,6 +72,10 @@
             height: 56px;
             background: linear-gradient(0deg, rgba(150, 152, 214, 0.1), rgba(150, 152, 214, 0.1)), #FFFFFF;
             border-radius: 10px;
+
+            @include media('max', 'xl') {
+              margin: 0 auto .5rem;
+            }
 
             .img_svg {
               margin: auto;
@@ -83,19 +109,15 @@
       }
 
       @include media('max', 'lg') {
-        flex-wrap: wrap;
-        justify-content: space-between;
-
         .card {
+          min-width: 150px;
+          margin-right: 1rem;
           width: 48%;
           margin-left: 0;
-        }
-      }
-      @include media('max', 'md') {
 
-        .card {
-          width: 100%;
-          margin-left: 0;
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
     }
@@ -117,6 +139,10 @@
         font-weight: 700;
         margin-top: 1.7em;
         margin-right: 2rem;
+
+        @include media('max', 'lg') {
+          margin-right: 0;
+        }
 
         span {
           color: #B1B5C3;
@@ -155,7 +181,10 @@
       flex-direction: column;
 
       & > div {
-        margin-left: 10rem;
+
+        @include media('min', 'lg') {
+          margin-left: 10rem;
+        }
       }
 
       .input_inner {
@@ -230,15 +259,27 @@
 
     }
 
+    @include media('max', 'md') {
+      display: none;
+    }
+
     &.prev {
       border-left: 1px solid #EBECEC;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
+
+      @include media('max', 'md') {
+        display: flex;
+      }
     }
 
     &.next {
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
+
+      @include media('max', 'md') {
+        display: flex;
+      }
     }
 
     &.first, &.last {
@@ -262,6 +303,15 @@
       .page-link {
         background-color: $green;
         color: $white;
+      }
+
+      @include media('max', 'md') {
+        display: flex;
+
+        .page-link {
+          background-color: transparent;
+          color: $green;
+        }
       }
     }
   }
@@ -353,6 +403,17 @@
           width: 277px;
           height: 239px;
 
+          @include media('max', 'xl') {
+            width: 250px;
+            height: 210px;
+          }
+
+          @include media('max', 'md') {
+            width: 277px;
+            height: 239px;
+          }
+
+
           img {
             border-radius: 10px;
             position: absolute;
@@ -401,13 +462,9 @@
               color: $white;
               background-color: #45B26B;
             }
-            
+
           }
         }
-
-      }
-
-      @include media('max', 'xl') {
 
       }
 
@@ -418,22 +475,9 @@
       }
 
       @include media('max', 'md') {
-
-
-        .card .card-img-top {
-
-        }
-      }
-
-      @include media('max', 'sm') {
         width: 100%;
       }
 
-      @include media('max', 'xs') {
-        .card-img-top {
-
-        }
-      }
     }
 
   }
