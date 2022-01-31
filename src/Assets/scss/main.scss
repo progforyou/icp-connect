@@ -63,8 +63,9 @@ body > iframe {
   text-transform: uppercase;
   border: none;
 
-  &:hover, &:focus {
+  &:hover, &:focus, &:active {
     background: $button-green-grad;
+    box-shadow: none !important;
   }
 
   &.disabled, &:disabled {

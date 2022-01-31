@@ -6,9 +6,10 @@ import {createLedgerActor} from "../Tools/Stoic/ledger";
 import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
 import {getIPCtoUSD} from "../Tools/ICPprice/ICPprice";
 import _ from 'lodash';
-
+import * as plug_controller from '@psychedelic/plug-controller';
 import '../Tools/Discord/connectDiscord';
 import {addRole, getRoleUser, removeRole} from "../Tools/Discord/connectDiscord";
+import * as principal_1 from "@dfinity/principal";
 
 
 /*import {rosettaApi} from "../Tools/Rosetta/RosettaTools";*/
@@ -35,6 +36,7 @@ class controller {
         if (connected) {
             await this.getNNSStats();
             this.principal = await requestPrincipal();
+            this.accounts = [].concat(plug_controller.default.getAccountId(principal_1.Principal.fromText(this.principal.toString())));
             const data = await getPlugData(this.tokenData, this.principal);
             store.dispatch('setup/type', "plug");
             store.dispatch('tokens/set', data);
@@ -90,7 +92,7 @@ class controller {
                     type: oneToken.type
                 })
             }))
-            if (!isArrayEqual(result, store.get().tokens)){
+            if (!isArrayEqual(result, store.get().tokens)) {
                 console.log('DISPATCH');
                 store.dispatch('tokens/set', result);
             }

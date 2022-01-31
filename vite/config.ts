@@ -14,6 +14,7 @@ const viteConfig = defineConfig({
                 main: resolve('index.html'),
             },
         },
+        target: [ 'es2020' ]
     },
     clearScreen: false,
     optimizeDeps: {
