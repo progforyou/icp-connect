@@ -70,12 +70,10 @@ export const _Dashboard = (props) => {
         window.location = '/';
     }
     return (
-        <div className={"dashboard-bg"}>
-            <Container>
-                <InfoDash {...props} verify={props.setup.verify}/>
-                <ListDash {...props}/>
-            </Container>
-        </div>
+        <Container>
+            <InfoDash {...props} verify={props.setup.verify}/>
+            <ListDash {...props}/>
+        </Container>
     )
 }
 

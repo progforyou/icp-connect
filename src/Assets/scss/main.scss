@@ -6,10 +6,13 @@
 
 body, body > * {
   font-family: "Montserrat", sans-serif;
-  background-color: $white;
 }
 
-body > iframe{
+body {
+  background-color: rgba(217, 224, 236, 0.2);
+}
+
+body > iframe {
   display: none;
 }
 
@@ -22,7 +25,7 @@ body > iframe{
   }
 }
 
-#root{
+#root {
   overflow: hidden;
 }
 
