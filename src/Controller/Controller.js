@@ -5,6 +5,7 @@ import {fetchResult, getAddresses} from "../Tools/Stoic/StoicTools";
 import {createLedgerActor} from "../Tools/Stoic/ledger";
 import {createNNSActor, getNNSStats} from "../Tools/NNS/nns_shell";
 import {getIPCtoUSD} from "../Tools/ICPprice/ICPprice";
+import _ from 'lodash';
 
 import '../Tools/Discord/connectDiscord';
 import {addRole, getRoleUser, removeRole} from "../Tools/Discord/connectDiscord";
@@ -89,7 +90,10 @@ class controller {
                     type: oneToken.type
                 })
             }))
-            store.dispatch('tokens/set', result);
+            if (!isArrayEqual(result, store.get().tokens)){
+                console.log('DISPATCH');
+                store.dispatch('tokens/set', result);
+            }
             return result;
         }
     }
@@ -124,28 +128,32 @@ class controller {
     async addRole(name, discriminator) {
         let accounts = [];
         this.accounts.map(e => {
-            if (typeof e === 'object'){
+            if (typeof e === 'object') {
                 accounts.push(e.address);
             }
         })
         console.log(this.accounts);
-        return await addRole(name, discriminator, this.principal.toText(), accounts).then(r  => {
+        return await addRole(name, discriminator, this.principal.toText(), accounts).then(r => {
             store.dispatch('setup/verify', r.data);
             return r
         });
     }
 
     async removeRole(name, discriminator) {
-        return await removeRole(name, discriminator, this.principal.toText()).then(r  => {
+        return await removeRole(name, discriminator, this.principal.toText()).then(r => {
             store.dispatch('setup/verify', {});
             return r
         });
     }
-    
-    async checkDiscordStatus(){
+
+    async checkDiscordStatus() {
         return await getRoleUser(this.principal.toText())
     }
 }
+
+const isArrayEqual = function (x, y) {
+    return _.isEmpty(_.xorWith(x, y, _.isEqual));
+};
 
 export default () => {
     return new controller();

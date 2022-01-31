@@ -10,18 +10,26 @@ const CardItem = (props) => {
         hidden = props.hidden ? "hidden" : "";
     switch (props.type) {
         case "ICPets":
-            color = "green";
+            color = "purple";
             break;
         default:
-            color = "blue";
+            color = "yellow";
             break;
     }
     return (
         <a target="_blank" className={"card_href " + hidden} href={props.url}>
             <Card>
-                <span className={"token_id"}>#{!hidden ? props.index.toString() : null}</span>
-                <Card.Img variant="top" src={props.url}/>
-                <div className={"info_card " + color}><span>{props.type}</span></div>
+                <div className={"top_info"}>
+                    <span className={"token_id"}>#{!hidden ? props.index.toString() : null}</span>
+                    <div className={"info_card " + color}><span>{props.type}</span></div>
+                </div>
+                <div className={"card_top"}>
+                    <img src={props.url} alt={props.index}/>
+                </div>
+                <div className={"description"}>
+                    <span className={"listed"}>listed</span>
+                    <span className={"delisted"}>delisted</span>
+                </div>
             </Card>
         </a>
     )
@@ -64,7 +72,7 @@ const _ListDash = (props) => {
                     <Row>
                         <Paginator/>
                     </Row>
-                    <Row className={"list_cards mb-5"}>
+                    <Row className={"list_cards my-5"}>
                         <div className={"cards_inner"}>
                             {renderList()}
                         </div>

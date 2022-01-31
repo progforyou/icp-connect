@@ -28,13 +28,13 @@ export const _Dashboard = (props) => {
                 await loadStoic()
                 break;
         }
-        await loadICPprice();
         if (timerRef.current) clearTimeout(timerRef.current);
         timerRef.current = setTimeout(() => loadAll(), 2000);
         return true;
     }
     const loadOne = async () => {
         try {
+            await loadICPprice();
             let data = await controller().checkDiscordStatus();
             props.dispatch('setup/verify', data);
             if (timerLazyRef.current) clearTimeout(timerLazyRef.current);
@@ -70,10 +70,12 @@ export const _Dashboard = (props) => {
         window.location = '/';
     }
     return (
-        <Container className={"mb-5"}>
-            <InfoDash {...props} verify={props.setup.verify}/>
-            <ListDash {...props}/>
-        </Container>
+        <div className={"dashboard-bg"}>
+            <Container>
+                <InfoDash {...props} verify={props.setup.verify}/>
+                <ListDash {...props}/>
+            </Container>
+        </div>
     )
 }
 

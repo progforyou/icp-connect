@@ -5,6 +5,7 @@ import Controller from "../Controller/Controller";
 import {ICPPriceCard, NFTCountCard, NNSCard, PETSCard} from "./CardsDash";
 import {NotificationManager} from "react-notifications";
 import {SpinnerApp} from "./SpinnerApp";
+import CircleButton_svg from "../Svg/CircleButton_svg";
 
 
 const _InfoDash = (props) => {
@@ -56,18 +57,22 @@ const _InfoDash = (props) => {
                         <PETSCard header={"PETS Token"}/>
                     </div>
                 </Row>
-                {props.verify ? <div>You already {props.verify.user.name} verify!</div> :
+                {/*#TODO already verify*/}
+                {/*{props.verify ? <div>You already {props.verify.user.name} verify!</div> :*/}
                     <Row className={"discord_section " + hidden}>
                         <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
                             <Row className={"discord_text"}>
-                                <p>Enter your Discord name (#name) and get a special <b>Pets Holders Role!</b></p>
+                                <p>Enter your Discord name <span>(#name)</span> and get a special Pets Holders Role!</p>
                             </Row>
                             <Row className={"discord_href"}>
-                                <a href="#qwe">Read more info</a>
+                                <div className={"d-flex"}>
+                                    <span>Read more info</span>
+                                    <CircleButton_svg customClass={"discord_href_svg"}/>
+                                </div>
                             </Row>
                         </Col>
                         <Col xl={6} lg={6} xs={12} className={"discord_form"}>
-                            <Row className={"m-auto"}>
+                            <Row className={"my-auto"}>
                                 <Col>
                                     <Row className={"input_inner"}>
                                         <div className={"form_inner"}>
@@ -98,7 +103,7 @@ const _InfoDash = (props) => {
                                 </Col>
                             </Row>
                         </Col>
-                    </Row>}
+                    </Row>
             </Col>
         </Row>
     )
