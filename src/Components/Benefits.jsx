@@ -74,35 +74,31 @@ const CardItemRewards = (props) => {
 
 const Benefits = () => {
     return (
-        <Row className={"benefits_block-bg"}>
-            <div>
-                <Container id={'benefits_block'}>
+        <Container id={'benefits_block'}>
+            <Row>
+                <Col>
                     <Row>
-                        <Col>
-                            <Row>
-                                <div>
-                                    <div className={"icp_img"}>
-                                        <img src={icp_img} alt={"icp"}/>
-                                    </div>
-                                </div>
-                            </Row>
-                            <Row>
-                                <div className={"big_text"}>
-                                    Exclusively on the Internet Computer
-                                </div>
-                            </Row>
-                            <Row>
-                                <div className={"cards_inner"}>
-                                    <CardItemConnect/>
-                                    <CardItemVerify/>
-                                    <CardItemRewards/>
-                                </div>
-                            </Row>
-                        </Col>
+                        <div className={"d-flex"}>
+                            <div className={"icp_img"}>
+                                <img src={icp_img} alt={"icp"}/>
+                            </div>
+                        </div>
                     </Row>
-                </Container>
-            </div>
-        </Row>
+                    <Row>
+                        <div className={"big_text"}>
+                            Exclusively on the Internet Computer
+                        </div>
+                    </Row>
+                    <Row>
+                        <div className={"cards_inner"}>
+                            <CardItemConnect/>
+                            <CardItemVerify/>
+                            <CardItemRewards/>
+                        </div>
+                    </Row>
+                </Col>
+            </Row>
+        </Container>
     )
 }
 

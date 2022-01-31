@@ -90,3 +90,16 @@ body > iframe {
 .navbar-toggler:focus {
   box-shadow: none;
 }
+
+
+@media (min-width: 1200px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 1000px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    max-width: 1150px;
+  }
+}

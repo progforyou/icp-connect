@@ -19,7 +19,13 @@ const NavApp = (props) => {
                         ICPets Holders Hub
                     </div>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbar-nav"/>
+                <Navbar.Toggle aria-controls="navbar-nav">
+                    <svg width="22" height="16" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M0.333374 0H21.6667V2.66667H0.333374V0ZM5.66671 6.66667H21.6667V9.33333H5.66671V6.66667ZM12.3334 13.3333H21.6667V16H12.3334V13.3333Z"
+                            fill="#01ACAF"/>
+                    </svg>
+                </Navbar.Toggle>
                 <Navbar.Collapse id={"navbar-nav"} className={"justify-content-end"}>
                     <Nav className={"py-0"}>
                         <Nav.Link href="#home" className={"menu_item"}>
