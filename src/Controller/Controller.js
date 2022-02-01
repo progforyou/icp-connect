@@ -21,6 +21,7 @@ class controller {
             {standard: "EXT", canisterId: "dknxi-2iaaa-aaaah-qceuq-cai", type: "Bulls"},
             {standard: "EXT", canisterId: "ahl3d-xqaaa-aaaaj-qacca-cai", type: "ICTuTs"}
         ]
+        this.listings = {}
         if (controller._instance) {
             return controller._instance
         }
@@ -37,21 +38,19 @@ class controller {
             await this.getNNSStats();
             this.principal = await requestPrincipal();
             this.accounts = [].concat(plug_controller.default.getAccountId(principal_1.Principal.fromText(this.principal.toString())));
-            const data = await getPlugData(this.tokenData, this.principal);
+            let data = await this.getPlugData();
             store.dispatch('setup/type', "plug");
-            store.dispatch('tokens/set', data);
-            return data
+            return data;
         }
     }
 
     async getPlugData() {
-        console.log(await window.ic.plug.createAgent());
         if (await window.ic.plug.createAgent()) {
-            console.log(window.ic.plug);
             if (!this.principal) this.principal = await requestPrincipal();
-            let data = await getPlugData(this.tokenData, this.principal);
+            let data = await getPlugData(this.tokenData, this.principal, this.actors);
             data = [].concat.apply([], data).filter(e => e);
             store.dispatch('tokens/set', data);
+            return data;
         } else throw 'Not connect';
     }
 
@@ -77,10 +76,11 @@ class controller {
             let result = [];
             await Promise.all(this.tokenData.map(async oneToken => {
                 let actor = await createLedgerActor(this.stoicIdentity, oneToken.canisterId);
+                let listings = await actor.listings();
                 let tokens = await Promise.all(this.accounts.map(async account => {
                     return await actor.tokens(account.address).then(r => {
                         if (r.ok) {
-                            return fetchResult(r, oneToken);
+                            return fetchResult(r, oneToken, listings);
                         } else {
                             return undefined;
                         }
@@ -133,9 +133,10 @@ class controller {
         this.accounts.map(e => {
             if (typeof e === 'object') {
                 accounts.push(e.address);
+            } else {
+                accounts.push(e);
             }
         })
-        console.log(this.accounts);
         return await addRole(name, discriminator, this.principal.toText(), accounts).then(r => {
             store.dispatch('setup/verify', r.data);
             return r

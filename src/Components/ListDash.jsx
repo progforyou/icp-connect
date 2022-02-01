@@ -27,8 +27,8 @@ const CardItem = (props) => {
                     <img src={props.url} alt={props.index}/>
                 </div>
                 <div className={"description"}>
-                    <span className={"listed"}>listed</span>
-                    <span className={"delisted"}>delisted</span>
+                    <span className={"listed "+ (props.listed ? "active" : "")}>listed</span>
+                    <span className={"delisted "+ (props.listed ? "" : "active")}>delisted</span>
                 </div>
             </Card>
         </a>

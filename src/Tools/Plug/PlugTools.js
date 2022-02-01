@@ -2,12 +2,19 @@ import {getNFTActor, getAllUserNFTs} from "@psychedelic/dab-js";
 import * as agent_1 from "@dfinity/agent";
 import * as cross_fetch from 'cross-fetch';
 import * as principal_1 from '@dfinity/principal';
+import _ from "lodash";
 
-export const getPlugData = async (tokenData, principal) => {
-    return await Promise.all(tokenData.map(e => {
-        return getPlugNFTCollections(principal, e).catch(e => {
+export const getPlugData = async (tokenData, principal, actors) => {
+    return await Promise.all(tokenData.map(async e => {
+        let result = await getPlugNFTCollections(principal, e).catch(e => {
             return undefined;
         });
+        if (result){
+            let actor = actors.find(actor => _.isEqual(actor.token, e)).actor;
+            let listings = await actor.listings();
+            result.collections = result.collections.map(e => ({...e,  listed: !!_.find(listings, function(o) { return o[0] === Number(e.index); })}))
+        }
+        return result;
     }))
 }
 

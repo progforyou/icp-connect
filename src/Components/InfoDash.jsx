@@ -28,7 +28,8 @@ const _InfoDash = (props) => {
         }
         if (!isError) Controller().addRole(name, discriminator)
             .then(r => {
-                NotificationManager.success('User updated!');
+                NotificationManager.success('User updated!');     
+                setNameInput('');
             })
             .catch(e => {
                 if (e.response) {
@@ -36,7 +37,6 @@ const _InfoDash = (props) => {
                         NotificationManager.success('User updated!');
                         console.log(e.response.data.data);
                         props.dispatch('setup/verify', e.response.data.data);
-                        setNameInput('');
                     } else {
                         NotificationManager.error(e.response.data.message.toString());
                     }

@@ -1,6 +1,7 @@
 import {createLedgerActor} from "./ledger";
 import {createNewStoicIdentityConnection} from "./stoic-identity-connect";
 import {Principal} from "@dfinity/principal";
+import _ from "lodash";
 
 export const getAddresses = async (newStoicIdentity) => {
     let addresses;
@@ -14,14 +15,15 @@ export const getAddresses = async (newStoicIdentity) => {
 }
 
 
-export const fetchResult = (result, oneToken) => {
+export const fetchResult = (result, oneToken, listings) => {
     return result.ok.map(el => {
         return {
             canister: oneToken.canisterId,
             id: tokenIdentifier(oneToken.canisterId, el),
             index: el,
             standard: oneToken.standard,
-            url: `https://${oneToken.canisterId}.raw.ic0.app/?tokenid=${tokenIdentifier(oneToken.canisterId, el)}`
+            url: `https://${oneToken.canisterId}.raw.ic0.app/?tokenid=${tokenIdentifier(oneToken.canisterId, el)}`,
+            listed: !!_.find(listings, function(o) { return o[0] === el; })
         }
     })
 }
