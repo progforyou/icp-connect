@@ -4,7 +4,6 @@ import controller from "../Controller/Controller";
 import {useNavigate} from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
 import {SpinnerApp} from "./SpinnerApp";
-import {LazyLoadImage} from 'react-lazy-load-image-component';
 import plug from '../Assets/img/plug.png';
 import stoic from '../Assets/img/stoic.png';
 import img_1 from '../Assets/img/img_main_1.png';

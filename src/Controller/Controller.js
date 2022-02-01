@@ -94,6 +94,7 @@ class controller {
             }))
             if (!isArrayEqual(result, store.get().tokens)) {
                 console.log('DISPATCH');
+                console.log(result);
                 store.dispatch('tokens/set', result);
             }
             return result;
