@@ -1,0 +1,30 @@
+/* display */
+$sizes: ("xs":320px, "sm":576px, "md":768px, "lg":991px, "xl":1199px, "xxl": 1398px);
+$white-gray: #EFEFEF;
+$white: #FFFFFF;
+$black: #303345;
+$green: #02AAB0;
+$button-green-grad: linear-gradient(90deg, #02ACB0 0%, #00C8AC 100%);
+
+$dm_ff: "DM Sans", sans-serif;
+$poppins_ff: "Poppins", sans-serif;
+$lato_ff: "Lato", sans-serif;
+$roboto_ff: "Roboto", sans-serif;
+
+
+@mixin media($minmax, $media) {
+  @each $size, $resolution in $sizes {
+    @if $media == $size {
+      @media only screen and (#{$minmax}-width: $resolution) {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin style_text($fs, $lh: initial, $ls: 0) {
+  font-size: $fs;
+  font-style: normal;
+  line-height: $lh;
+  letter-spacing: $ls;
+}

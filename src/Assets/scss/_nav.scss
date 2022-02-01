@@ -1,0 +1,87 @@
+@import "variables";
+
+#navbar {
+  border-bottom: $white-gray 1px solid;
+  background-color: $white;
+
+  & .container-fluid {
+    @include media('min', 'md') {
+      margin-left: 30px;
+      margin-right: 30px;
+    }
+  }
+
+  & .navbar-brand {
+    display: flex;
+    height: 73px;
+
+    & .brand {
+      @include style_text(16px, 30px);
+      margin: auto 0;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: left;
+
+
+      svg {
+        margin-right: .7em;
+      }
+    }
+  }
+  
+  & .navbar-toggler{
+    border: none;
+  }
+
+
+  & .nav-link {
+    font-family: $dm_ff;
+    @include style_text(16px);
+    font-weight: 500;
+    color: inherit;
+
+    &.menu_item {
+      display: flex;
+      height: 73px;
+      border-bottom: 3px solid transparent !important;
+
+      @include media('min', 'lg') {
+        margin-left: 5em;
+      }
+      
+      svg{
+        width: 21px;
+        height: 21px;
+      }
+
+      svg path, svg circle {
+        transition: fill .15s ease-in-out;
+      }
+
+
+      &:hover, &:active {
+        color: $green !important;
+        background-color: $white;
+
+        svg path, svg circle {
+          fill: $green;
+        }
+
+        .discord {
+          & path {
+            fill: white;
+          }
+        }
+      }
+
+      & .item {
+        display: flex;
+        margin: auto;
+
+        svg {
+          margin: auto 10px auto 0;
+        }
+      }
+    }
+  }
+}
