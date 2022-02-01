@@ -36,6 +36,7 @@ const _InfoDash = (props) => {
                         NotificationManager.success('User updated!');
                         console.log(e.response.data.data);
                         props.dispatch('setup/verify', e.response.data.data);
+                        setNameInput('');
                     } else {
                         NotificationManager.error(e.response.data.message.toString());
                     }
@@ -54,6 +55,16 @@ const _InfoDash = (props) => {
         })
         setTokesCount(count);
     }, [props.tokens])
+    React.useEffect(() => {
+        if (props.verify) {
+            console.log(props.verify);
+            if (Object.keys(props.verify).length) {
+                NotificationManager.success('User already verified!');
+            } else {
+                NotificationManager.error('User not verified!');
+            }
+        }
+    }, [props.verify])
     return (
         <Row id={"info_dash"}>
             <Col>

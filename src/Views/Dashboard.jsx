@@ -42,7 +42,7 @@ export const _Dashboard = (props) => {
         } catch (e) {
             if (timerLazyRef.current) clearTimeout(timerLazyRef.current);
             timerLazyRef.current = setTimeout(() => loadOne(), 10000);
-            props.dispatch('setup/verify', null);
+            props.dispatch('setup/verify', {});
         }
     }
     React.useEffect(() => {

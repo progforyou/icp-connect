@@ -1,5 +1,11 @@
+import _ from 'lodash';
+
 export function setup(store) {
-    store.on('@init', () => ({setup: {}}))
+    store.on('@init', () => ({
+        setup: {
+            verify: null
+        }
+    }))
 
     store.on('setup/set', ({setup}, data) => {
         return {setup: data}
@@ -14,6 +20,8 @@ export function setup(store) {
     })
 
     store.on('setup/verify', ({setup}, verify) => {
-        return {setup: {...setup, verify: verify}}
+        if (!_.isEqual(verify, setup.verify)){
+            return {setup: {...setup, verify: verify}}
+        }
     })
 }
