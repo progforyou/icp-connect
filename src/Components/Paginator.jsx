@@ -82,12 +82,16 @@ const Paginator = (props) => {
     const onClick = (page) => {
         return props.onClick(page);
     }
-    
+
     return (
         <Pagination id={"pagination"}>
-            <Pagination.First className={"first"} onClick={() => onClick(1)}>First</Pagination.First>
-            {casePaginator(props.totalPages, props.currentPage, props)}
-            <Pagination.Last className={"last"} onClick={() => onClick(props.totalPages)}>Last</Pagination.Last>
+            {props.totalPages > 1 ?
+                <>
+                    <Pagination.First className={"first"} onClick={() => onClick(1)}>First</Pagination.First>
+                    {casePaginator(props.totalPages, props.currentPage, props)}
+                    <Pagination.Last className={"last"} onClick={() => onClick(props.totalPages)}>Last</Pagination.Last>
+                </>
+                : null}
         </Pagination>
     )
 }
