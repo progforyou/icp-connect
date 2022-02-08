@@ -43,10 +43,10 @@ class controller {
         }
     }
 
-    async getPlugData() {
+    async getPlugData(actors) {
         if (await window.ic.plug.createAgent()) {
             if (!this.principal) this.principal = await requestPrincipal();
-            let data = await getPlugData(this.tokenData, this.principal, this.actors);
+            let data = await getPlugData(this.tokenData, this.principal, this.actors, this.accounts);
             data = [].concat.apply([], data).filter(e => e);
             store.dispatch('tokens/set', data);
             return data;
