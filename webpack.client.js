@@ -1,10 +1,11 @@
 const path = require("path")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const webpackConfig = require('./webpack.config')
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = (env, argv) => {
     const watchMode = argv.liveReload || false
@@ -27,13 +28,13 @@ module.exports = (env, argv) => {
     }
 
     if (isProd) {
-        optimizations.minimizer.push(new UglifyJsPlugin())
+        optimizations.minimizer.push(new TerserPlugin())
     }
 
     return {
         devServer: {
             static: {
-                directory: path.join(__dirname, "dist"),
+                directory: path.join(__dirname, "build"),
             },
             compress: true,
             port: 3000,
@@ -57,13 +58,14 @@ module.exports = (env, argv) => {
             new webpack.ProvidePlugin({
                 Buffer: ['buffer', 'Buffer'],
             }),
+            new MiniCssExtractPlugin()
         ],
         entry: {
             main: './src/index.jsx', // Энтрипоинт-файл, с которого и начнется наша сборка
         },
         output: {
             filename: watchMode ? 'assets/[name].[hash].js' : 'assets/[name].[chunkhash].js', // небольшое условие, т.к. WDS не будет работать с chunkhash
-            path: path.resolve(__dirname, 'dist'), // Весь наш результат складываем в папку dist
+            path: path.resolve(__dirname, 'build'), // Весь наш результат складываем в папку build
             publicPath: '/',
         },
         performance: {

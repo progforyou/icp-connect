@@ -2,10 +2,13 @@ import React from "react";
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {connectStoreon} from "storeon/react";
 import Controller from "../Controller/Controller";
-import {ICPPriceCard, NFTCountCard, NNSCard, PETSCard} from "./CardsDash";
 import {NotificationManager} from "react-notifications";
-import {SpinnerApp} from "./SpinnerApp";
+import SpinnerApp from "./SpinnerApp";
 import CircleButton_svg from "../Svg/CircleButton_svg";
+import ICPPriceCard from "./Cards/ICPPriceCard";
+import NNSCard from "./Cards/NNSCard";
+import NFTCountCard from "./Cards/NFTCountCard";
+import PETSCard from "./Cards/PETSCard";
 
 
 const _InfoDash = (props) => {

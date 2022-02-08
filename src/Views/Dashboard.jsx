@@ -6,7 +6,7 @@ import {connectStoreon} from "storeon/react";
 import controller from "../Controller/Controller";
 import {NotificationManager} from "react-notifications";
 
-export const _Dashboard = (props) => {
+const _Dashboard = (props) => {
     const timerRef = React.useRef(null);
     const timerLazyRef = React.useRef(null);
     const [load, setLoad] = React.useState(false);

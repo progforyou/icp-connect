@@ -1,4 +1,5 @@
 const path = require("path")
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = (env) => {
     const modules = [
@@ -6,16 +7,16 @@ module.exports = (env) => {
             test: /\.(sa|sc|c)ss$/,
             use: [
                 // Creates `style` nodes from JS strings
-                "style-loader",
+                MiniCssExtractPlugin.loader,
                 // Translates CSS into CommonJS
                 "css-loader",
                 // Compiles Sass to CSS
                 "sass-loader",
-            ],
+            ]
         },
         {
-            test: /\.jsx/,
-            exclude: /(node_modules|bower_components)/,
+            test: /\.jsx?$/,
+            exclude: /(node_modules)/,
             use: {
                 loader: 'babel-loader',
                 options: {

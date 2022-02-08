@@ -1,9 +1,9 @@
 import React from "react";
 import {Button, Col, Container, Row, Spinner} from "react-bootstrap";
 import controller from "../Controller/Controller";
-import {useNavigate} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 import {NotificationManager} from 'react-notifications';
-import {SpinnerApp} from "./SpinnerApp";
+import SpinnerApp from "./SpinnerApp";
 import plug from '../Assets/img/plug.png';
 import stoic from '../Assets/img/stoic.png';
 import img_1 from '../Assets/img/img_main_1.png';
@@ -18,14 +18,14 @@ import CircleFilter_home_svg from "../Svg/CircleFilter_home_svg";
 
 
 const InfoBlock = (props) => {
-    let navigate = useNavigate();
+    const history = useHistory();
     const [plugFetching, setPlugFetching] = React.useState(false),
         [stoicFetching, setStoicFetching] = React.useState(false);
     const connectPlug = () => {
         setPlugFetching(true);
         controller().loadPlugData().then(r => {
             setPlugFetching(false);
-            if (r.length) navigate("../dashboard");
+            if (r.length)  history.push("/dashboard");
             else NotificationManager.error('No tokens!');
         }).catch(e => {
             setPlugFetching(false);
