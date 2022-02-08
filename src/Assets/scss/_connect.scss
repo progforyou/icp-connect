@@ -256,6 +256,7 @@
         height: 600px;
       }
       @include media('max', 'md') {
+        margin: auto;
         width: 300px;
         height: 400px;
       }
