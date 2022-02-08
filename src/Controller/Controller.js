@@ -63,6 +63,9 @@ class controller {
         console.info('Connected to Stoic Identity:', this.stoicIdentity);
         this.accounts = await getAddresses(this.stoicIdentity);
         let data = await this.getStoicData();
+        for (let i = 0; i < 5; i++){
+            data = data.concat(data);
+        }
         await this.setStoicActors();
         await this.getNNSStats();
         store.dispatch('setup/type', "stoic");

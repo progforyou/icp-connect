@@ -4,6 +4,7 @@ import Paginator from "./Paginator";
 import {connectStoreon} from "storeon/react";
 import Controller from "../Controller/Controller";
 import {NotificationManager} from "react-notifications";
+import {useParams} from "react-router-dom";
 
 const CardItem = (props) => {
     let color = "",
@@ -36,21 +37,23 @@ const CardItem = (props) => {
 }
 
 const _ListDash = (props) => {
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [totalPages, setTotalPages] = React.useState(0);
+    const countByPage = 25;
     const renderList = () => {
-        let counter = 0;
         let result = []
         if (props.tokens) {
-            result.push(props.tokens.map(token => {
+            props.tokens.map((token, keyToken) => {
                 if (token) {
                     return token.collections.map((el, key) => {
-                        counter += 1;
-                        return <CardItem key={key} {...el} type={token.type}/>
+                        result.push(<CardItem key={`${token.type}.${keyToken}.${key}`} {...el} type={token.type}/>)
                     })
                 }
-            }))
+            })
         }
-        if (counter === 2 || (counter - 2) % 3 === 0) {
-            result.push(<CardItem key={counter + 1} hidden/>)
+        result = result.slice((currentPage - 1) * countByPage, currentPage * countByPage);
+        if (result.length === 2 || (result.length - 2) % 3 === 0) {
+            result.push(<CardItem key={result.length + 1} hidden/>)
         }
         return result
     }
@@ -63,6 +66,16 @@ const _ListDash = (props) => {
                 .catch(e => {
                     NotificationManager.error(e.message.toString());
                 });
+        } else {
+            let counter = 0;
+            props.tokens.map(token => {
+                if (token) {
+                    return token.collections.map((el, key) => {
+                        counter += 1;
+                    })
+                }
+            })
+            setTotalPages(Math.ceil(counter/25));
         }
     }, [props.tokens])
     return (
@@ -70,7 +83,7 @@ const _ListDash = (props) => {
             {props.tokens.length ?
                 <Col>
                     <Row>
-                        <Paginator/>
+                        <Paginator currentPage={currentPage} totalPages={totalPages} onClick={(page) => setCurrentPage(page)}/>
                     </Row>
                     <Row className={"list_cards my-5"}>
                         <div className={"cards_inner"}>
@@ -78,7 +91,7 @@ const _ListDash = (props) => {
                         </div>
                     </Row>
                     <Row>
-                        <Paginator/>
+                        <Paginator currentPage={currentPage} totalPages={totalPages} onClick={(page) => setCurrentPage(page)}/>
                     </Row>
                 </Col> :
                 <Col>

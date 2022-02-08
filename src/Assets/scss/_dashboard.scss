@@ -222,6 +222,11 @@
 }
 
 #pagination {
+  
+  .hidden{
+    opacity: 0;
+    pointer-events: none;
+  }
 
   .page-item {
     border: 1px solid #EBECEC;
