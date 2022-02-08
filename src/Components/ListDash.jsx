@@ -27,8 +27,8 @@ const CardItem = (props) => {
                     <img src={props.url} alt={props.index}/>
                 </div>
                 <div className={"description"}>
-                    {props.listed ? <span className={"listed active" + (props.listed ? "active" : "")}>listed</span> :
-                        <span className={"delisted active" + (props.listed ? "" : "active")}>delisted</span>}
+                    {props.listed ? <span className={"listed active"}>listed</span> :
+                        <span className={"delisted active"}>delisted</span>}
                 </div>
             </Card>
         </a>
