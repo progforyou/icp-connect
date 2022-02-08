@@ -22,7 +22,7 @@ export const fetchResult = (result, oneToken, listings) => {
             id: tokenIdentifier(oneToken.canisterId, el),
             index: el,
             standard: oneToken.standard,
-            url: `https://${oneToken.canisterId}.raw.ic0.app/?tokenid=${tokenIdentifier(oneToken.canisterId, el)}`,
+            url: `https://${oneToken.canisterId}.raw.ic0.app/?cc=0&type=thumbnail&tokenid=${tokenIdentifier(oneToken.canisterId, el)}`,
             listed: !!_.find(listings, function(o) { return o[0] === el; })
         }
     })
