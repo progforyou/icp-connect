@@ -38,7 +38,7 @@ const InfoBlock = (props) => {
         setStoicFetching(true);
         controller().loadStoicData().then(r => {
             setStoicFetching(false);
-            if (r.length) navigate("../dashboard");
+            if (r.length) history.push("/dashboard");
             else NotificationManager.error('No tokens!');
         }).catch(e => {
             setStoicFetching(false);
