@@ -1,7 +1,8 @@
 import React from "react";
 import {Route, Routes} from "react-router-dom";
-import {Connect, Dashboard} from "./Views";
 import NavApp from "./Components/Navbar";
+import Dashboard from "./Views/Dashboard";
+import Connect from "./Views/Connect";
 
 const Routing = (props) => {
     return (

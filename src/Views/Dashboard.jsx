@@ -77,4 +77,4 @@ export const _Dashboard = (props) => {
     )
 }
 
-export const Dashboard = connectStoreon('tokens', 'setup', 'icp_price', _Dashboard);
+export default connectStoreon('tokens', 'setup', 'icp_price', _Dashboard);

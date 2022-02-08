@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const DiscordClient = axios.create({
-    baseURL: 'https://nftbotdiscordapi.herokuapp.com/',
+    baseURL: 'https://pets-hub.herokuapp.com/',
     headers: {
         "Access-Control-Allow-Origin": "*",
     }
