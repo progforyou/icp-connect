@@ -31,7 +31,7 @@ const _InfoDash = (props) => {
         }
         if (!isError) Controller().addRole(name, discriminator)
             .then(r => {
-                NotificationManager.success('User updated!');     
+                NotificationManager.success('User updated!');
                 setNameInput('');
             })
             .catch(e => {
@@ -68,6 +68,18 @@ const _InfoDash = (props) => {
             }
         }
     }, [props.verify])
+    React.useEffect(() => {
+        const listener = event => {
+            if (event.code === "Enter" || event.code === "NumpadEnter") {
+                event.preventDefault();
+                onSubmit();
+            }
+        };
+        document.addEventListener("keydown", listener);
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, []);
     return (
         <Row id={"info_dash"}>
             <Col>
@@ -85,7 +97,7 @@ const _InfoDash = (props) => {
                     <Col xl={6} lg={6} xs={12} className={"discord_inner"}>
                         <Row>
                             <div className={"discord_text"}>
-                                <p>Enter your Discord name <span>(#name)</span> and get a special Pets Holders Role!</p>
+                                <p>Enter your Discord name <span>(name#1111)</span> and get a special Pets Holders Role!</p>
                             </div>
                         </Row>
                         <Row className={"discord_href"}>
