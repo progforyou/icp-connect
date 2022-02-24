@@ -63,14 +63,8 @@
         color: $green !important;
         background-color: $white;
 
-        svg path, svg circle {
+        svg circle {
           fill: $green;
-        }
-
-        .discord {
-          & path {
-            fill: white;
-          }
         }
       }
 

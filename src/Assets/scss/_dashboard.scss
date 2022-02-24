@@ -152,12 +152,17 @@
       .discord_href {
         padding-left: 1rem;
 
-        span {
-          @include style_text(14px, 24px);
-          font-family: $dm_ff;
-          font-weight: 500;
-          color: $green;
-          margin: auto 1rem auto 0;
+        a {
+          text-decoration: none;
+
+          span {
+            @include style_text(14px, 24px);
+            font-family: $dm_ff;
+            font-weight: 500;
+            color: $green;
+            margin: auto 1rem auto 0;
+          }
+
         }
 
         .discord_href_svg {
@@ -222,8 +227,8 @@
 }
 
 #pagination {
-  
-  .hidden{
+
+  .hidden {
     opacity: 0;
     pointer-events: none;
   }

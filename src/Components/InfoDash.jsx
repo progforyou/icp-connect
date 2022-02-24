@@ -101,10 +101,10 @@ const _InfoDash = (props) => {
                             </div>
                         </Row>
                         <Row className={"discord_href"}>
-                            <div className={"d-flex"}>
+                            <a href="https://discord.gg/d2dhjgqMJy" target="_blank" className={"d-flex"}>
                                 <span>Read more info</span>
                                 <CircleButton_svg customClass={"discord_href_svg"}/>
-                            </div>
+                            </a>
                         </Row>
                     </Col>
                     <Col xl={6} lg={6} xs={12} className={"discord_form"}>

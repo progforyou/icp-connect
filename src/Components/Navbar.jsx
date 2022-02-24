@@ -27,7 +27,7 @@ const NavApp = (props) => {
                 </Navbar.Toggle>
                 <Navbar.Collapse id={"navbar-nav"} className={"justify-content-end"}>
                     <Nav className={"py-0"}>
-                        <Nav.Link href="#home" className={"menu_item"}>
+                        <Nav.Link href="https://twitter.com/icpets_nft" target="_blank" className={"menu_item"}>
                             <div className={"item"}>
                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -39,7 +39,7 @@ const NavApp = (props) => {
                                 Twitter
                             </div>
                         </Nav.Link>
-                        <Nav.Link href="#features" className={"menu_item"}>
+                        <Nav.Link href="https://discord.gg/d2dhjgqMJy" target="_blank" className={"menu_item"}>
                             <div className={"item"}>
                                 <svg className={"discord"} width="21" height="21" viewBox="0 0 21 21" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@ const NavApp = (props) => {
                                 Discord
                             </div>
                         </Nav.Link>
-                        <Nav.Link href="#pricing" className={"menu_item"}>
+                        <Nav.Link href="https://h5aet-waaaa-aaaab-qaamq-cai.raw.ic0.app/p/icpets" target="_blank" className={"menu_item"}>
                             <div className={"item"}>
                                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
