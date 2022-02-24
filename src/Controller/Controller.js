@@ -17,8 +17,7 @@ import * as principal_1 from "@dfinity/principal";
 class controller {
     constructor() {
         this.tokenData = [
-            {standard: "EXT", canisterId: "unssi-hiaaa-aaaah-qcmya-cai", type: "ICPets"},
-            {standard: "EXT", canisterId: "ahl3d-xqaaa-aaaaj-qacca-cai", type: "ICTuTs"}
+            {standard: "EXT", canisterId: "unssi-hiaaa-aaaah-qcmya-cai", type: "ICPets"}
         ]
         this.listings = {}
         if (controller._instance) {
