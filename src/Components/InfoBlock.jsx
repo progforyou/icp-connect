@@ -78,7 +78,7 @@ const InfoBlock = (props) => {
                             <div className={"description d-flex"}>
                                 <div className={"stats"}>
                                     <div className="stats_count">
-                                        4.5k+
+                                        5k+
                                     </div>
                                     <div className="stats_text">
                                         Twitter
@@ -86,7 +86,7 @@ const InfoBlock = (props) => {
                                 </div>
                                 <div className={"stats"}>
                                     <div className="stats_count">
-                                        850+
+                                        1k+
                                     </div>
                                     <div className="stats_text">
                                         Unique holders
