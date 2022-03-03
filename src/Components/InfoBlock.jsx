@@ -16,6 +16,13 @@ import Dot_svg from "../Svg/Dot_svg";
 import SmallFilter_home_svg from "../Svg/SmallFilter_home_svg";
 import CircleFilter_home_svg from "../Svg/CircleFilter_home_svg";
 
+const checkForData = (tokens) => {
+    let empty = true;
+    tokens.map(e => {
+        if (e.collections) if (e.collections.length) empty = false
+    })
+    return empty;
+}
 
 const InfoBlock = (props) => {
     const history = useHistory();
@@ -25,8 +32,8 @@ const InfoBlock = (props) => {
         setPlugFetching(true);
         controller().loadPlugData().then(r => {
             setPlugFetching(false);
-            if (r.length)  history.push("/dashboard");
-            else NotificationManager.error('No tokens!');
+            if (checkForData(r)) NotificationManager.error('NFT is not found!');
+            else history.push("/dashboard");
         }).catch(e => {
             setPlugFetching(false);
             NotificationManager.error(e.toString(), 'Try again!', 5000, () => {
@@ -38,8 +45,8 @@ const InfoBlock = (props) => {
         setStoicFetching(true);
         controller().loadStoicData().then(r => {
             setStoicFetching(false);
-            if (r.length) history.push("/dashboard");
-            else NotificationManager.error('No tokens!');
+            if (checkForData(r)) NotificationManager.error('NFT is not found!');
+            else history.push("/dashboard");
         }).catch(e => {
             setStoicFetching(false);
             NotificationManager.error(e.toString(), 'Click for try again!', 5000, () => {

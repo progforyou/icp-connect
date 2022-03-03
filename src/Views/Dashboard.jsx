@@ -65,10 +65,6 @@ const _Dashboard = (props) => {
     }, [])
 
     if (load) return null;
-    if (!props.tokens.length) {
-        //#TODO add remove role
-        window.location = '/';
-    }
     return (
         <Container>
             <InfoDash {...props} verify={props.setup.verify}/>
